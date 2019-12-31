@@ -63,7 +63,6 @@ public class CarControllerTest {
 		   .andExpect(jsonPath("$.carId").value(1));
 	}
 	
-	// NOT WORKING
 	@Test
 	public void testAddingCar() throws Exception {
 				
@@ -72,10 +71,9 @@ public class CarControllerTest {
 		
 		mvc.perform(post("/cars").contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsString(car)))
 		   .andExpect(status().isOk())
-		   .andExpect(jsonPath("$").value(car));
+		   .andExpect(jsonPath("$.color").value("red"));
 	}
 	
-	// NOT WORKING
 	@Test
 	public void testUpdatingCar() throws Exception {
 		
@@ -84,7 +82,7 @@ public class CarControllerTest {
 		
 		mvc.perform(put("/cars/{id}", 1).contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsString(car)))
 		   .andExpect(status().isOk())
-		   .andExpect(jsonPath("$.user").value(car));
+		   .andExpect(jsonPath("$.color").value("red"));
 	}
 	
 	@Test

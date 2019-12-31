@@ -30,23 +30,29 @@ public class User implements Serializable {
 	
 	private String firstName;
 	private String lastName;
+	private String email;
+	private String phoneNumber;
 	private boolean isDriver;
 	private boolean isActive;
-		
+	private boolean isAcceptingRides;
+	
 	public User() {
 		super();
 	}
-
-	public User(int userId, String userName, Batch batch, String firstName, String lastName, boolean isDriver,
-			boolean isActive) {
+	
+	public User(int userId, String userName, Batch batch, String firstName, String lastName, String email,
+			String phoneNumber, boolean isDriver, boolean isActive, boolean isAcceptingRides) {
 		super();
 		this.userId = userId;
 		this.userName = userName;
 		this.batch = batch;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
 		this.isDriver = isDriver;
 		this.isActive = isActive;
+		this.isAcceptingRides = isAcceptingRides;
 	}
 
 	public int getUserId() {
@@ -89,6 +95,22 @@ public class User implements Serializable {
 		this.lastName = lastName;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
 	public boolean isDriver() {
 		return isDriver;
 	}
@@ -105,15 +127,26 @@ public class User implements Serializable {
 		this.isActive = isActive;
 	}
 
+	public boolean isAcceptingRides() {
+		return isAcceptingRides;
+	}
+
+	public void setAcceptingRides(boolean isAcceptingRides) {
+		this.isAcceptingRides = isAcceptingRides;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((batch == null) ? 0 : batch.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
+		result = prime * result + (isAcceptingRides ? 1231 : 1237);
 		result = prime * result + (isActive ? 1231 : 1237);
 		result = prime * result + (isDriver ? 1231 : 1237);
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+		result = prime * result + ((phoneNumber == null) ? 0 : phoneNumber.hashCode());
 		result = prime * result + userId;
 		result = prime * result + ((userName == null) ? 0 : userName.hashCode());
 		return result;
@@ -133,10 +166,17 @@ public class User implements Serializable {
 				return false;
 		} else if (!batch.equals(other.batch))
 			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
 		if (firstName == null) {
 			if (other.firstName != null)
 				return false;
 		} else if (!firstName.equals(other.firstName))
+			return false;
+		if (isAcceptingRides != other.isAcceptingRides)
 			return false;
 		if (isActive != other.isActive)
 			return false;
@@ -146,6 +186,11 @@ public class User implements Serializable {
 			if (other.lastName != null)
 				return false;
 		} else if (!lastName.equals(other.lastName))
+			return false;
+		if (phoneNumber == null) {
+			if (other.phoneNumber != null)
+				return false;
+		} else if (!phoneNumber.equals(other.phoneNumber))
 			return false;
 		if (userId != other.userId)
 			return false;
@@ -160,7 +205,8 @@ public class User implements Serializable {
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", userName=" + userName + ", batch=" + batch + ", firstName=" + firstName
-				+ ", lastName=" + lastName + ", isDriver=" + isDriver + ", isActive=" + isActive + "]";
+				+ ", lastName=" + lastName + ", email=" + email + ", phoneNumber=" + phoneNumber + ", isDriver="
+				+ isDriver + ", isActive=" + isActive + ", isAcceptingRides=" + isAcceptingRides + "]";
 	}
-
+	
 }
