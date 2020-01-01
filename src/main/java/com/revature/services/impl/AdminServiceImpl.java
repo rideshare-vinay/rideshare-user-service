@@ -25,4 +25,20 @@ public class AdminServiceImpl implements AdminService {
 		return ar.getOne(id);
 	}
 
+	@Override
+	public Admin createAdmin(Admin admin) {
+		return ar.save(admin);
+	}
+
+	@Override
+	public Admin updateAdmin(Admin admin) {
+		return ar.save(admin);
+	}
+	
+	@Override
+	public String deleteAdminById(int id) {
+		ar.deleteById(id);
+		return "Admin with id: " + id + " was deleted.";
+	}
+
 }
