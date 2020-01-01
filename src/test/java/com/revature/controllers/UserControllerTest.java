@@ -73,7 +73,7 @@ public class UserControllerTest {
 			.thenReturn(user);
 		
 		mvc.perform(post("/users").contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsString(user)))
-		   .andExpect(status().isOk())
+		   .andExpect(status().isCreated())
 		   .andExpect(jsonPath("$.userName").value("userName"));
 	}
 	

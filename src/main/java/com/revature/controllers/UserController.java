@@ -3,6 +3,8 @@ package com.revature.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,13 +39,13 @@ public class UserController {
 	}
 	
 	@PostMapping
-	public User addUser(@RequestBody User user) {
+	public ResponseEntity<User> addUser(@RequestBody User user) {
 		
-		return us.addUser(user);
+		return new ResponseEntity<>(us.addUser(user), HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/{id}")
-	public User updateUser(@PathVariable("id")int id, @RequestBody User user) {
+	public User updateUser(@RequestBody User user) {
 		
 		return us.updateUser(user);
 	}

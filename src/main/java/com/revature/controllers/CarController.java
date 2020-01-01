@@ -3,6 +3,8 @@ package com.revature.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,13 +39,13 @@ public class CarController {
 	}
 	
 	@PostMapping
-	public Car addCar(@RequestBody Car car) {
+	public ResponseEntity<Car> addCar(@RequestBody Car car) {
 		
-		return cs.addCar(car);
+		return new ResponseEntity<>(cs.addCar(car), HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/{id}")
-	public Car updateCar(@PathVariable("id")int id, @RequestBody Car car) {
+	public Car updateCar(@RequestBody Car car) {
 		
 		return cs.updateCar(car);
 	}

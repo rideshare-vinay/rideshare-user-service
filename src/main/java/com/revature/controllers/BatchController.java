@@ -3,6 +3,8 @@ package com.revature.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,13 +39,13 @@ public class BatchController {
 	}
 	
 	@PostMapping
-	public Batch addBatch(@RequestBody Batch batch) {
+	public ResponseEntity<Batch> addBatch(@RequestBody Batch batch) {
 		
-		return bs.addBatch(batch);
+		return new ResponseEntity<>(bs.addBatch(batch), HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/{number}")
-	public Batch updateBatch(@PathVariable("number")int number, @RequestBody Batch batch) {
+	public Batch updateBatch(@RequestBody Batch batch) {
 		
 		return bs.updateBatch(batch);
 	}

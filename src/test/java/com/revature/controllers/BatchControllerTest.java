@@ -69,7 +69,7 @@ public class BatchControllerTest {
 		when(bs.addBatch(new Batch(123, "address"))).thenReturn(batch);
 		
 		mvc.perform(post("/batches").contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsString(batch)))
-		   .andExpect(status().isOk())
+		   .andExpect(status().isCreated())
 		   .andExpect(jsonPath("$").value(batch));
 	}
 	
