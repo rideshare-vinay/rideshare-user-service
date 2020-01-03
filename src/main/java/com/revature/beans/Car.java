@@ -10,29 +10,39 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 
 import org.springframework.stereotype.Component;
 
 @Component
 @Entity
-@Table(name="car_table")
+@Table(name="cars")
 public class Car implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="car_id")
 	private int carId;
 	private String color;
+	
+	@Positive
 	private int seats;
+	
+	@NotBlank
 	private String make;
+	
+	@NotBlank
 	private String model;
 	
-	@Column(name="year_")
+	@Positive
+	@Column(name="car_year")
 	private int year;
 	
 	@OneToOne
-	@JoinColumn(name="userId")
+	@JoinColumn(name="user_id")
 	private User user;
 	
 	public Car() {

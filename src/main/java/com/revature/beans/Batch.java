@@ -2,21 +2,26 @@ package com.revature.beans;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 import org.springframework.stereotype.Component;
 
 @Component
 @Entity
-@Table(name="batch_table")
+@Table(name="batches")
 public class Batch implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
+	@Column(name="batch_number")
 	private int batchNumber;
+	
+	@NotBlank
 	private String address;
 	
 	public Batch() {

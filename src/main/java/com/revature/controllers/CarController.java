@@ -2,6 +2,8 @@ package com.revature.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,13 +41,13 @@ public class CarController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Car> addCar(@RequestBody Car car) {
+	public ResponseEntity<Car> addCar(@Valid @RequestBody Car car) {
 		
 		return new ResponseEntity<>(cs.addCar(car), HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/{id}")
-	public Car updateCar(@RequestBody Car car) {
+	public Car updateCar(@Valid @RequestBody Car car) {
 		
 		return cs.updateCar(car);
 	}

@@ -2,6 +2,8 @@ package com.revature.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,13 +41,13 @@ public class AdminController {
 	}
 		
 	@PostMapping
-	public ResponseEntity<Admin> createAdmin(@RequestBody Admin admin) {
+	public ResponseEntity<Admin> createAdmin(@Valid @RequestBody Admin admin) {
 		
 		return new ResponseEntity<>(as.createAdmin(admin), HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/{id}")
-	public Admin updateAdmin(@RequestBody Admin admin) {
+	public Admin updateAdmin(@Valid @RequestBody Admin admin) {
 		
 		return as.updateAdmin(admin);
 	}

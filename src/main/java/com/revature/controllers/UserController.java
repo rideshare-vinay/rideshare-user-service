@@ -2,6 +2,8 @@ package com.revature.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,13 +41,13 @@ public class UserController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<User> addUser(@RequestBody User user) {
+	public ResponseEntity<User> addUser(@Valid @RequestBody User user) {
 		
 		return new ResponseEntity<>(us.addUser(user), HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/{id}")
-	public User updateUser(@RequestBody User user) {
+	public User updateUser(@Valid @RequestBody User user) {
 		
 		return us.updateUser(user);
 	}
@@ -55,4 +57,5 @@ public class UserController {
 		
 		return us.deleteUserById(id);
 	}
+	
 }

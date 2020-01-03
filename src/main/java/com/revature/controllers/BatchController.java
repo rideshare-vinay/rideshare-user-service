@@ -2,6 +2,8 @@ package com.revature.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,13 +41,13 @@ public class BatchController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Batch> addBatch(@RequestBody Batch batch) {
+	public ResponseEntity<Batch> addBatch(@Valid @RequestBody Batch batch) {
 		
 		return new ResponseEntity<>(bs.addBatch(batch), HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/{number}")
-	public Batch updateBatch(@RequestBody Batch batch) {
+	public Batch updateBatch(@Valid @RequestBody Batch batch) {
 		
 		return bs.updateBatch(batch);
 	}

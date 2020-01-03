@@ -2,6 +2,7 @@ package com.revature.beans;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,31 +10,52 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import org.springframework.stereotype.Component;
 
 @Component
 @Entity
-@Table(name="user_table")
+@Table(name="users")
 public class User implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="user_id")
 	private int userId;
+	
+	@NotBlank
+	@Column(name="user_name")
 	private String userName;
 	
 	@ManyToOne
-	@JoinColumn(name="batchNumber")
+	@JoinColumn(name="batch_number")
 	private Batch batch;
 	
+	@NotBlank
+	@Column(name="first_name")
 	private String firstName;
+	
+	@NotBlank
+	@Column(name="last_name")
 	private String lastName;
+	
+	@Email
 	private String email;
+	
+	@NotBlank
+	@Column(name="phone_number")
 	private String phoneNumber;
+	
+	@Column(name="is_driver")
 	private boolean isDriver;
+	
+	@Column(name="is_active")
 	private boolean isActive;
+	
+	@Column(name="is_accepting_rides")
 	private boolean isAcceptingRides;
 	
 	public User() {
