@@ -36,6 +36,11 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
+	public List<User> getUserByRoleAndLocation(boolean isDriver, String location) {
+		return ur.getUserByRoleAndLocation(isDriver, location);
+	}
+	
+	@Override
 	public User addUser(User user) {
 		return ur.save(user);
 	}

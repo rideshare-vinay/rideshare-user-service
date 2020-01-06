@@ -16,4 +16,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	
 	@Query("select u from User u where u.userName = ?1")
 	public List<User> getUserByUsername(String username);
+	
+	@Query("select u from User u where u.isDriver = ?1 and u.batch.batchLocation = ?2")
+	public List<User> getUserByRoleAndLocation(boolean isDriver, String location);
 }

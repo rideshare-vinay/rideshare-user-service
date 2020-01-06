@@ -36,9 +36,12 @@ public class UserController {
 	@ApiOperation(value="Returns all users", tags= {"User"}, notes="An optional is-driver parameter would filter riders and drivers")
 	@GetMapping
 	public List<User> getUsers(@RequestParam(name="is-driver",required=false)Boolean isDriver,
-							   @RequestParam(name="username",required=false)String username) {
+							   @RequestParam(name="username",required=false)String username,
+							   @RequestParam(name="location", required=false)String location) {
 		
-		if (isDriver != null) {
+		if (isDriver != null && location != null) {
+			return us.getUserByRoleAndLocation(isDriver.booleanValue(), location);
+		} else if (isDriver != null) {
 			return us.getUserByRole(isDriver.booleanValue());
 		} else if (username != null) {
 			return us.getUserByUsername(username);
