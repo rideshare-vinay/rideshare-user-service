@@ -22,16 +22,17 @@ public class Batch implements Serializable {
 	private int batchNumber;
 	
 	@NotBlank
-	private String address;
+	@Column(name="batch_location")
+	private String batchLocation;
 	
 	public Batch() {
 		super();
 	}
 
-	public Batch(int batchNumber, String address) {
+	public Batch(int batchNumber, @NotBlank String batchLocation) {
 		super();
 		this.batchNumber = batchNumber;
-		this.address = address;
+		this.batchLocation = batchLocation;
 	}
 
 	public int getBatchNumber() {
@@ -42,19 +43,19 @@ public class Batch implements Serializable {
 		this.batchNumber = batchNumber;
 	}
 
-	public String getAddress() {
-		return address;
+	public String getBatchLocation() {
+		return batchLocation;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setBatchLocation(String batchLocation) {
+		this.batchLocation = batchLocation;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((address == null) ? 0 : address.hashCode());
+		result = prime * result + ((batchLocation == null) ? 0 : batchLocation.hashCode());
 		result = prime * result + batchNumber;
 		return result;
 	}
@@ -68,10 +69,10 @@ public class Batch implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Batch other = (Batch) obj;
-		if (address == null) {
-			if (other.address != null)
+		if (batchLocation == null) {
+			if (other.batchLocation != null)
 				return false;
-		} else if (!address.equals(other.address))
+		} else if (!batchLocation.equals(other.batchLocation))
 			return false;
 		if (batchNumber != other.batchNumber)
 			return false;
@@ -80,7 +81,7 @@ public class Batch implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Batch [batchNumber=" + batchNumber + ", address=" + address + "]";
+		return "Batch [batchNumber=" + batchNumber + ", batchLocation=" + batchLocation + "]";
 	}
 	
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.beans.User;
@@ -32,9 +33,16 @@ public class UserController {
 	@Autowired
 	private UserService us;
 	
-	@ApiOperation(value="Returns all users", tags= {"User"})
+	@ApiOperation(value="Returns all users", tags= {"User"}, notes="An optional is-driver parameter would filter riders and drivers")
 	@GetMapping
-	public List<User> getUsers() {
+	public List<User> getUsers(@RequestParam(name="is-driver",required=false)Boolean isDriver,
+							   @RequestParam(name="username",required=false)String username) {
+		
+		if (isDriver != null) {
+			return us.getUserByRole(isDriver.booleanValue());
+		} else if (username != null) {
+			return us.getUserByUsername(username);
+		}
 		
 		return us.getUsers();
 	}
@@ -45,7 +53,7 @@ public class UserController {
 		
 		return us.getUserById(id);
 	}
-	
+		
 	@ApiOperation(value="Adds a new user", tags= {"User"})
 	@PostMapping
 	public ResponseEntity<User> addUser(@Valid @RequestBody User user) {

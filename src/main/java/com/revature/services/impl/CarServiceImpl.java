@@ -26,6 +26,10 @@ public class CarServiceImpl implements CarService {
 	}
 
 	@Override
+	public Car getCarByUserId(int userId) {
+		return cr.getCarByUserId(userId);
+	}
+	@Override
 	public Car addCar(Car car) {
 		return cr.save(car);
 	}

@@ -46,6 +46,13 @@ public class CarController {
 		return cs.getCarById(id);
 	}
 	
+	@ApiOperation(value="Returns car by user id", tags= {"Car"})
+	@GetMapping("/users/{userId}")
+	public Car getCarByUserId(@PathVariable("userId")int userId) {
+		
+		return cs.getCarByUserId(userId);
+	}
+	
 	@ApiOperation(value="Adds a new car", tags= {"Car"})
 	@PostMapping
 	public ResponseEntity<Car> addCar(@Valid @RequestBody Car car) {

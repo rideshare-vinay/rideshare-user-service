@@ -24,7 +24,17 @@ public class UserServiceImpl implements UserService {
 	public User getUserById(int id) {
 		return ur.getOne(id);
 	}
-
+	
+	@Override
+	public List<User> getUserByUsername(String username) {
+		return ur.getUserByUsername(username);
+	}
+	
+	@Override
+	public List<User> getUserByRole(boolean isDriver) {
+		return ur.getUserByRole(isDriver);
+	}
+	
 	@Override
 	public User addUser(User user) {
 		return ur.save(user);
