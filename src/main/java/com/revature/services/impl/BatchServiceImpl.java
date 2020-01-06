@@ -29,12 +29,7 @@ public class BatchServiceImpl implements BatchService {
 	public List<Batch> getBatchByLocation(String location) {
 		return br.getBatchByLocation(location);
 	}
-	
-	@Override
-	public List<Batch> getBatchByLocationAndNumber(String location, int number) {
-		return br.getBatchByLocationAndNumber(location, number);
-	}
-	
+		
 	@Override
 	public Batch addBatch(Batch batch) {
 		return br.save(batch);

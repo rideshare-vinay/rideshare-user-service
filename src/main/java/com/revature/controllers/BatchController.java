@@ -1,6 +1,5 @@
 package com.revature.controllers;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -35,24 +34,13 @@ public class BatchController {
 	@Autowired
 	private BatchService bs;
 	
-	@ApiOperation(value="Returns all batches", tags= {"Batch"}, notes="Can also filter by location or location and number")
+	@ApiOperation(value="Returns all batches", tags= {"Batch"}, notes="Can also filter by location")
 	@GetMapping
-	public List<Batch> getBatches(@RequestParam(name="location",required=false)String location,
-								  @RequestParam(name="number",required=false)Integer number, HttpServletResponse response) {
+	public List<Batch> getBatches(@RequestParam(name="location",required=false)String location, HttpServletResponse response) {
 		
-		if (location != null && number != null) {
-			
-			return bs.getBatchByLocationAndNumber(location, number);
-		} else if (location != null) {
+		if (location != null) {
 			
 			return bs.getBatchByLocation(location);
-		} else if (number != null) {
-			
-			try {
-				response.sendError(400, "Cannot request with only the number parameter");
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 		}
 		
 		return bs.getBatches();
