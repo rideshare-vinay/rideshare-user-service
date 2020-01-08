@@ -2,7 +2,6 @@ package com.revature.controllers;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +24,15 @@ import com.revature.services.BatchService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
+/**
+ * BatchController takes care of handling our requests to /batches.
+ * It provides methods that can perform tasks like all batches, batch by number, batch by location, add batch,
+ * update batch and delete batch by id.
+ * 
+ * @author Adonis Cabreja
+ *
+ */
+
 @RestController
 @RequestMapping("/batches")
 @CrossOrigin
@@ -34,9 +42,16 @@ public class BatchController {
 	@Autowired
 	private BatchService bs;
 	
+	/**
+	 * HTTP GET method (/batches)
+	 * 
+	 * @param location represents the batch location.
+	 * @return A list of all the batches or batches by the location.
+	 */
+	
 	@ApiOperation(value="Returns all batches", tags= {"Batch"}, notes="Can also filter by location")
 	@GetMapping
-	public List<Batch> getBatches(@RequestParam(name="location",required=false)String location, HttpServletResponse response) {
+	public List<Batch> getBatches(@RequestParam(name="location",required=false)String location) {
 		
 		if (location != null) {
 			
@@ -46,13 +61,27 @@ public class BatchController {
 		return bs.getBatches();
 	}
 	
-	@ApiOperation(value="Returns batch by id", tags= {"Batch"})
+	/**
+	 * HTTP GET method (/batches/{number})
+	 * 
+	 * @param number represents the batch number.
+	 * @return A batch that matches the number.
+	 */
+	
+	@ApiOperation(value="Returns batch by number", tags= {"Batch"})
 	@GetMapping("/{number}")
 	public Batch getBatchByNumber(@PathVariable("number")int number) {
 		
 		return bs.getBatchByNumber(number);
 	}
-		
+	
+	/**
+	 * HTTP POST method (/batches)
+	 * 
+	 * @param batch represents the new Batch object being sent.
+	 * @return The newly created object with a 201 code.
+	 */
+	
 	@ApiOperation(value="Adds a new batch", tags= {"Batch"})
 	@PostMapping
 	public ResponseEntity<Batch> addBatch(@Valid @RequestBody Batch batch) {
@@ -60,14 +89,28 @@ public class BatchController {
 		return new ResponseEntity<>(bs.addBatch(batch), HttpStatus.CREATED);
 	}
 	
-	@ApiOperation(value="Updates batch by id", tags= {"Batch"})
+	/**
+	 * HTTP PUT method (/batches)
+	 * 
+	 * @param batch represents the updated Batch object being sent.
+	 * @return The newly updated object.
+	 */
+	
+	@ApiOperation(value="Updates batch by number", tags= {"Batch"})
 	@PutMapping("/{number}")
 	public Batch updateBatch(@Valid @RequestBody Batch batch) {
 		
 		return bs.updateBatch(batch);
 	}
 	
-	@ApiOperation(value="Deletes batch by id", tags= {"Batch"})
+	/**
+	 * HTTP DELETE method (/batches/{id})
+	 * 
+	 * @param number represents the batch number.
+	 * @return A string that says which batch was deleted.
+	 */
+	
+	@ApiOperation(value="Deletes batch by number", tags= {"Batch"})
 	@DeleteMapping("/{number}")
 	public String deleteBatchByNumber(@PathVariable("number")int number) {
 		

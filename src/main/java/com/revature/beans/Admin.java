@@ -12,6 +12,13 @@ import javax.validation.constraints.NotBlank;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * Admin class that represents the admins. All admins have an id and a username.
+ * 
+ * @author Adonis Cabreja
+ *
+ */
+
 @Component
 @Entity
 @Table(name="admins")

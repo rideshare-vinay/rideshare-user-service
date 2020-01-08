@@ -15,6 +15,14 @@ import javax.validation.constraints.Positive;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * Car class that represents a user's car. All cars have an id, color, seats, make, model, year
+ * and the corresponding user.
+ * 
+ * @author Adonis Cabreja
+ *
+ */
+
 @Component
 @Entity
 @Table(name="cars")

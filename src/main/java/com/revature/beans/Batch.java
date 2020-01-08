@@ -10,6 +10,13 @@ import javax.validation.constraints.NotBlank;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * Batch class that represents a user's batch. All batches have a batch number and a location.
+ * 
+ * @author Adonis Cabreja
+ *
+ */
+
 @Component
 @Entity
 @Table(name="batches")

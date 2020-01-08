@@ -14,6 +14,14 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import org.springframework.stereotype.Component;
 
+/**
+ * User class that represents a driver/rider. All users have an id, username, corresponding batch, first name,
+ * last name, email, phone number, isDriver, isActive and isAcceptingRides.
+ * 
+ * @author Adonis Cabreja
+ *
+ */
+
 @Component
 @Entity
 @Table(name="users")
