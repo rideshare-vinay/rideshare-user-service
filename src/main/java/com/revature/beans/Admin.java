@@ -84,7 +84,8 @@ public class Admin implements Serializable {
 		if (userName == null) {
 			if (other.userName != null)
 				return false;
-		} else if (!userName.equals(other.userName))
+		} 
+		else if (!userName.equals(other.userName))
 			return false;
 		return true;
 	}

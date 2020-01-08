@@ -79,7 +79,8 @@ public class Batch implements Serializable {
 		if (batchLocation == null) {
 			if (other.batchLocation != null)
 				return false;
-		} else if (!batchLocation.equals(other.batchLocation))
+		} 
+		else if (!batchLocation.equals(other.batchLocation))
 			return false;
 		if (batchNumber != other.batchNumber)
 			return false;
