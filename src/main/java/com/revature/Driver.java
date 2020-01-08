@@ -23,7 +23,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class Driver {
 	
 	/**
-	 * The main method of the Driver class
+	 * The main method of the Driver class.
 	 * 
 	 * @param args represents any CLI arguments.
 	 * @throws Exception
