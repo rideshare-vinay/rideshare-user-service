@@ -53,7 +53,7 @@ public class CarControllerTest {
 	}
 	
 	@Test
-	public void testGettingCarsById() throws Exception {
+	public void testGettingCarById() throws Exception {
 		
 		Car car = new Car(1, "red", 4, "Honda", "Accord", 2015, new User());
 		when(cs.getCarById(1)).thenReturn(car);
@@ -62,7 +62,7 @@ public class CarControllerTest {
 		   .andExpect(status().isOk())
 		   .andExpect(jsonPath("$.carId").value(1));
 	}
-		
+	
 	@Test
 	public void testAddingCar() throws Exception {
 				

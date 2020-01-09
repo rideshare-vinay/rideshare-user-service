@@ -54,19 +54,32 @@ public class BatchControllerTest {
 	@Test
 	public void testGettingBatchByNumber() throws Exception {
 		
-		Batch batch = new Batch(123, "address");
+		Batch batch = new Batch(123, "location");
 		when(bs.getBatchByNumber(123)).thenReturn(batch);
 		
 		mvc.perform(get("/batches/{number}", 123))
-		   .andExpect(status().isOk()).andExpect(jsonPath("$.batchNumber")
-		   .value(123));
+		   .andExpect(status().isOk())
+		   .andExpect(jsonPath("$.batchNumber").value(123));
+	}
+	
+	@Test
+	public void testGettingBatchesByLocation() throws Exception {
+		
+		List<Batch> batches = new ArrayList<>();
+		batches.add(new Batch(123, "location"));
+		batches.add(new Batch(456, "location"));
+		when(bs.getBatchByLocation("location")).thenReturn(batches);
+		
+		mvc.perform(get("/batches?location=location"))
+		   .andExpect(status().isOk())
+		   .andExpect(jsonPath("$", hasSize(2)));
 	}
 	
 	@Test
 	public void testAddingBatch() throws Exception {
 		
-		Batch batch = new Batch(123, "address");
-		when(bs.addBatch(new Batch(123, "address"))).thenReturn(batch);
+		Batch batch = new Batch(123, "location");
+		when(bs.addBatch(new Batch(123, "location"))).thenReturn(batch);
 		
 		mvc.perform(post("/batches").contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsString(batch)))
 		   .andExpect(status().isCreated())
@@ -76,8 +89,8 @@ public class BatchControllerTest {
 	@Test
 	public void testUpdatingBatch() throws Exception {
 		
-		Batch batch = new Batch(123, "address");
-		when(bs.updateBatch(new Batch(123, "address"))).thenReturn(batch);
+		Batch batch = new Batch(123, "location");
+		when(bs.updateBatch(new Batch(123, "location"))).thenReturn(batch);
 		
 		mvc.perform(put("/batches/{id}", 123).contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsString(batch)))
 		   .andExpect(status().isOk())
@@ -87,7 +100,7 @@ public class BatchControllerTest {
 	@Test
 	public void testDeletingBatch() throws Exception {
 		
-		Batch batch = new Batch(123, "address");
+		Batch batch = new Batch(123, "location");
 		String returnedStr = "Batch number: " + batch.getBatchNumber() + " was deleted.";
 		when(bs.deleteBatchByNumber(123)).thenReturn(returnedStr);
 		
