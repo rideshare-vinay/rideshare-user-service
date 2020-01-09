@@ -37,7 +37,7 @@ CREATE TABLE public.cars (
 	car_year int4 NULL,
 	user_id int4 NULL,
 	CONSTRAINT cars_pkey PRIMARY KEY (car_id),
-	CONSTRAINT fkqw4c8e6nqrvy3ti1xj8w8wyc9 FOREIGN KEY (user_id) REFERENCES users(user_id)
+	CONSTRAINT cars_fkey FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
 -- USER TABLE
@@ -58,5 +58,5 @@ CREATE TABLE public.users (
 	user_name varchar(255) NULL,
 	batch_number int4 NULL,
 	CONSTRAINT users_pkey PRIMARY KEY (user_id),
-	CONSTRAINT fk1m32c5mv3u88kf1og2yabmhxh FOREIGN KEY (batch_number) REFERENCES batches(batch_number)
+	CONSTRAINT users_fkey FOREIGN KEY (batch_number) REFERENCES batches(batch_number)
 );
