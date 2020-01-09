@@ -64,6 +64,17 @@ public class CarControllerTest {
 	}
 	
 	@Test
+	public void testGettingCarByUserId() throws Exception {
+		
+		Car car = new Car(1, "red", 4, "Honda", "Accord", 2015, new User());
+		when(cs.getCarByUserId(1)).thenReturn(car);
+		
+		mvc.perform(get("/cars/users/{id}", 1))
+		   .andExpect(status().isOk())
+		   .andExpect(jsonPath("$.carId").value(1));
+	}
+	
+	@Test
 	public void testAddingCar() throws Exception {
 				
 		Car car = new Car(1, "red", 4, "Honda", "Accord", 2015, new User());
@@ -73,7 +84,7 @@ public class CarControllerTest {
 		   .andExpect(status().isCreated())
 		   .andExpect(jsonPath("$.color").value("red"));
 	}
-	
+		
 	@Test
 	public void testUpdatingCar() throws Exception {
 		

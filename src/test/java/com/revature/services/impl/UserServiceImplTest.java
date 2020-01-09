@@ -33,7 +33,7 @@ public class UserServiceImplTest {
 		users.add(new User());
 		when(ur.findAll()).thenReturn(users);
 		
-		assertEquals(usi.getUsers().size(), 2);
+		assertEquals(2, usi.getUsers().size());
 	}
 	
 	@Test
@@ -43,7 +43,7 @@ public class UserServiceImplTest {
 		when(ur.getOne(1)).thenReturn(expected);
 		User actual = usi.getUserById(1);
 		
-		assertEquals(actual, expected);
+		assertEquals(expected, actual);
 	}
 	
 	@Test
@@ -54,7 +54,7 @@ public class UserServiceImplTest {
 		when(ur.getUserByUsername("userName")).thenReturn(expected);
 		List<User> actual = usi.getUserByUsername("userName");
 		
-		assertEquals(actual, expected);
+		assertEquals(expected, actual);
 	}
 	
 	@Test
@@ -65,7 +65,7 @@ public class UserServiceImplTest {
 		when(ur.getUserByRole(true)).thenReturn(expected);
 		List<User> actual = usi.getUserByRole(true);
 		
-		assertEquals(actual, expected);
+		assertEquals(expected, actual);
 	}
 	
 	@Test
@@ -76,7 +76,7 @@ public class UserServiceImplTest {
 		when(ur.getUserByRoleAndLocation(true, "location")).thenReturn(expected);
 		List<User> actual = usi.getUserByRoleAndLocation(true, "location");
 		
-		assertEquals(actual, expected);
+		assertEquals(expected, actual);
 	}
 	
 	@Test
@@ -86,7 +86,7 @@ public class UserServiceImplTest {
 		when(ur.save(expected)).thenReturn(expected);
 		User actual = usi.addUser(expected);
 		
-		assertEquals(actual, expected);
+		assertEquals(expected, actual);
 	}
 	
 	@Test
@@ -96,7 +96,7 @@ public class UserServiceImplTest {
 		when(ur.save(expected)).thenReturn(expected);
 		User actual = usi.updateUser(expected);
 		
-		assertEquals(actual, expected);
+		assertEquals(expected, actual);
 	}
 	
 	@Test
@@ -106,7 +106,7 @@ public class UserServiceImplTest {
 		when(ur.existsById(1)).thenReturn(true);
 		String actual = usi.deleteUserById(1);
 		
-		assertEquals(actual, expected);
+		assertEquals(expected, actual);
 	}
 	
 }

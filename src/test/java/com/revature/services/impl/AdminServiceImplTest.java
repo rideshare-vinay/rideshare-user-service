@@ -32,7 +32,7 @@ public class AdminServiceImplTest {
 		admins.add(new Admin());
 		when(ar.findAll()).thenReturn(admins);
 		
-		assertEquals(asi.getAdmins().size(), 2);
+		assertEquals(2, asi.getAdmins().size());
 
 	}
 	
@@ -43,7 +43,7 @@ public class AdminServiceImplTest {
 		when(ar.getOne(1)).thenReturn(expected);
 		Admin actual = asi.getAdminById(1);
 		
-		assertEquals(actual, expected);
+		assertEquals(expected, actual);
 	}
 	
 	@Test
@@ -53,7 +53,7 @@ public class AdminServiceImplTest {
 		when(ar.save(expected)).thenReturn(expected);
 		Admin actual = asi.createAdmin(expected);
 		
-		assertEquals(actual, expected);
+		assertEquals(expected, actual);
 	}
 	
 	@Test
@@ -63,7 +63,7 @@ public class AdminServiceImplTest {
 		when(ar.save(expected)).thenReturn(expected);
 		Admin actual = asi.updateAdmin(expected);
 		
-		assertEquals(actual, expected);
+		assertEquals(expected, actual);
 	}
 	
 	@Test
@@ -73,7 +73,7 @@ public class AdminServiceImplTest {
 		when(ar.existsById(1)).thenReturn(true);
 		String actual = asi.deleteAdminById(1);
 		
-		assertEquals(actual, expected);
+		assertEquals(expected, actual);
 	}
 	
 }

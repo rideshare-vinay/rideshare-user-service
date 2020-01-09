@@ -33,7 +33,7 @@ public class CarServiceImplTest {
 		cars.add(new Car());
 		when(cr.findAll()).thenReturn(cars);
 		
-		assertEquals(csi.getCars().size(), 2);
+		assertEquals(2, csi.getCars().size());
 	}
 	
 	@Test

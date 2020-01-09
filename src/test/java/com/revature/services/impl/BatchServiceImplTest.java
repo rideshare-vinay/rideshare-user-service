@@ -32,7 +32,7 @@ public class BatchServiceImplTest {
 		batches.add(new Batch());
 		when(br.findAll()).thenReturn(batches);
 		
-		assertEquals(bsi.getBatches().size(), 2);
+		assertEquals(2, bsi.getBatches().size());
 	}
 	
 	@Test
@@ -42,7 +42,7 @@ public class BatchServiceImplTest {
 		when(br.getOne(123)).thenReturn(expected);
 		Batch actual = bsi.getBatchByNumber(123);
 		
-		assertEquals(actual, expected);
+		assertEquals(expected, actual);
 	}
 	
 	@Test
@@ -53,7 +53,7 @@ public class BatchServiceImplTest {
 		batches.add(new Batch(456, "location"));
 		when(br.getBatchByLocation("location")).thenReturn(batches);
 		
-		assertEquals(bsi.getBatchByLocation("location").size(), 2);
+		assertEquals(2, bsi.getBatchByLocation("location").size());
 	}
 	
 	@Test
@@ -63,7 +63,7 @@ public class BatchServiceImplTest {
 		when(br.save(expected)).thenReturn(expected);
 		Batch actual = bsi.addBatch(expected);
 		
-		assertEquals(actual, expected);
+		assertEquals(expected, actual);
 	}
 	
 	@Test
@@ -73,7 +73,7 @@ public class BatchServiceImplTest {
 		when(br.save(expected)).thenReturn(expected);
 		Batch actual = bsi.updateBatch(expected);
 		
-		assertEquals(actual, expected);
+		assertEquals(expected, actual);
 	}
 	
 	@Test
@@ -83,6 +83,6 @@ public class BatchServiceImplTest {
 		when(br.existsById(123)).thenReturn(true);
 		String actual = bsi.deleteBatchByNumber(123);
 		
-		assertEquals(actual, expected);
+		assertEquals(expected, actual);
 	}
 }
