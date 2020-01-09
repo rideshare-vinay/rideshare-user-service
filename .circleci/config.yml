@@ -7,6 +7,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Jacoco test
+          command: mvn test
+      - run:
           name: Analyze on SonarCloud
           command: mvn verify sonar:sonar
 
