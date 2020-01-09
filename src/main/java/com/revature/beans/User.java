@@ -14,6 +14,14 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import org.springframework.stereotype.Component;
 
+/**
+ * User class that represents a driver/rider. All users have an id, username, corresponding batch, first name,
+ * last name, email, phone number, isDriver, isActive and isAcceptingRides.
+ * 
+ * @author Adonis Cabreja
+ *
+ */
+
 @Component
 @Entity
 @Table(name="users")
@@ -186,17 +194,20 @@ public class User implements Serializable {
 		if (batch == null) {
 			if (other.batch != null)
 				return false;
-		} else if (!batch.equals(other.batch))
+		} 
+		else if (!batch.equals(other.batch))
 			return false;
 		if (email == null) {
 			if (other.email != null)
 				return false;
-		} else if (!email.equals(other.email))
+		} 
+		else if (!email.equals(other.email))
 			return false;
 		if (firstName == null) {
 			if (other.firstName != null)
 				return false;
-		} else if (!firstName.equals(other.firstName))
+		} 
+		else if (!firstName.equals(other.firstName))
 			return false;
 		if (isAcceptingRides != other.isAcceptingRides)
 			return false;
@@ -207,19 +218,22 @@ public class User implements Serializable {
 		if (lastName == null) {
 			if (other.lastName != null)
 				return false;
-		} else if (!lastName.equals(other.lastName))
+		} 
+		else if (!lastName.equals(other.lastName))
 			return false;
 		if (phoneNumber == null) {
 			if (other.phoneNumber != null)
 				return false;
-		} else if (!phoneNumber.equals(other.phoneNumber))
+		} 
+		else if (!phoneNumber.equals(other.phoneNumber))
 			return false;
 		if (userId != other.userId)
 			return false;
 		if (userName == null) {
 			if (other.userName != null)
 				return false;
-		} else if (!userName.equals(other.userName))
+		} 
+		else if (!userName.equals(other.userName))
 			return false;
 		return true;
 	}

@@ -23,6 +23,15 @@ import com.revature.services.CarService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
+/**
+ * CarController takes care of handling our requests to /cars.
+ * It provides methods that can perform tasks like all cars, car by id, car by user id, add car, update car and 
+ * delete car by id.
+ * 
+ * @author Adonis Cabreja
+ *
+ */
+
 @RestController
 @RequestMapping("/cars")
 @CrossOrigin
@@ -32,12 +41,25 @@ public class CarController {
 	@Autowired
 	private CarService cs;
 	
+	/**
+	 * HTTP GET method (/cars)
+	 * 
+	 * @return A list of all the cars.
+	 */
+	
 	@ApiOperation(value="Returns all cars", tags= {"Car"})
 	@GetMapping
 	public List<Car> getCars() {
 		
 		return cs.getCars();
 	}
+	
+	/**
+	 * HTTP GET method (/cars/{number})
+	 * 
+	 * @param id represents the car's id.
+	 * @return A car that matches the id.
+	 */
 	
 	@ApiOperation(value="Returns car by id", tags= {"Car"})
 	@GetMapping("/{id}")
@@ -46,12 +68,26 @@ public class CarController {
 		return cs.getCarById(id);
 	}
 	
+	/**
+	 * HTTP GET method (/cars/users/{userId})
+	 * 
+	 * @param userId represents the user's id.
+	 * @return A car that matches the user's id.
+	 */
+	
 	@ApiOperation(value="Returns car by user id", tags= {"Car"})
 	@GetMapping("/users/{userId}")
 	public Car getCarByUserId(@PathVariable("userId")int userId) {
 		
 		return cs.getCarByUserId(userId);
 	}
+	
+	/**
+	 * HTTP POST method (/cars)
+	 * 
+	 * @param car represents the new Car object being sent.
+	 * @return The newly created object with a 201 code.
+	 */
 	
 	@ApiOperation(value="Adds a new car", tags= {"Car"})
 	@PostMapping
@@ -60,12 +96,26 @@ public class CarController {
 		return new ResponseEntity<>(cs.addCar(car), HttpStatus.CREATED);
 	}
 	
+	/**
+	 * HTTP PUT method (/cars)
+	 * 
+	 * @param car represents the updated Car object being sent.
+	 * @return The newly updated object.
+	 */
+	
 	@ApiOperation(value="Updates car by id", tags= {"Car"})
 	@PutMapping("/{id}")
 	public Car updateCar(@Valid @RequestBody Car car) {
 		
 		return cs.updateCar(car);
 	}
+	
+	/**
+	 * HTTP DELETE method (/cars/{id})
+	 * 
+	 * @param id represents the car's id.
+	 * @return A string that says which car was deleted.
+	 */
 	
 	@ApiOperation(value="Deletes car by id", tags= {"Car"})
 	@DeleteMapping("/{id}")

@@ -15,6 +15,14 @@ import javax.validation.constraints.Positive;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * Car class that represents a user's car. All cars have an id, color, seats, make, model, year
+ * and the corresponding user.
+ * 
+ * @author Adonis Cabreja
+ *
+ */
+
 @Component
 @Entity
 @Table(name="cars")
@@ -144,24 +152,28 @@ public class Car implements Serializable {
 		if (color == null) {
 			if (other.color != null)
 				return false;
-		} else if (!color.equals(other.color))
+		} 
+		else if (!color.equals(other.color))
 			return false;
 		if (make == null) {
 			if (other.make != null)
 				return false;
-		} else if (!make.equals(other.make))
+		} 
+		else if (!make.equals(other.make))
 			return false;
 		if (model == null) {
 			if (other.model != null)
 				return false;
-		} else if (!model.equals(other.model))
+		} 
+		else if (!model.equals(other.model))
 			return false;
 		if (seats != other.seats)
 			return false;
 		if (user == null) {
 			if (other.user != null)
 				return false;
-		} else if (!user.equals(other.user))
+		} 
+		else if (!user.equals(other.user))
 			return false;
 		if (year != other.year)
 			return false;

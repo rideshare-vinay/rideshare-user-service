@@ -64,6 +64,42 @@ public class UserControllerTest {
 	}
 	
 	@Test
+	public void testGettingUserByUsername() throws Exception {
+		
+		List<User> users = new ArrayList<>();
+		users.add(new User(1, "userName", new Batch(), "adonis", "cabreja", "adonis@gmail.com", "123-456-789", true, true, true));
+		when(us.getUserByUsername("userName")).thenReturn(users);
+		
+		mvc.perform(get("/users?username=userName"))
+		   .andExpect(status().isOk())
+		   .andExpect(jsonPath("$[0].userName").value("userName"));
+	}
+	
+	@Test
+	public void testGettingUserByRole() throws Exception {
+		
+		List<User> users = new ArrayList<>();
+		users.add(new User(1, "userName", new Batch(), "adonis", "cabreja", "adonis@gmail.com", "123-456-789", true, true, true));
+		when(us.getUserByRole(true)).thenReturn(users);
+		
+		mvc.perform(get("/users?is-driver=true"))
+		   .andExpect(status().isOk())
+		   .andExpect(jsonPath("$[0].driver").value("true"));
+	}
+	
+	@Test
+	public void testGettingUserByRoleAndLocation() throws Exception {
+		
+		List<User> users = new ArrayList<>();
+		users.add(new User(1, "userName", new Batch(), "adonis", "cabreja", "adonis@gmail.com", "123-456-789", true, true, true));
+		when(us.getUserByRoleAndLocation(true, "location")).thenReturn(users);
+		
+		mvc.perform(get("/users?is-driver=true&location=location"))
+		   .andExpect(status().isOk())
+		   .andExpect(jsonPath("$[0].driver").value("true"));
+	}
+	
+	@Test
 	public void testAddingUser() throws Exception {
 		
 		Batch batch = new Batch(111, "address");

@@ -12,6 +12,13 @@ import javax.validation.constraints.NotBlank;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * Admin class that represents the admins. All admins have an id and a username.
+ * 
+ * @author Adonis Cabreja
+ *
+ */
+
 @Component
 @Entity
 @Table(name="admins")
@@ -77,7 +84,8 @@ public class Admin implements Serializable {
 		if (userName == null) {
 			if (other.userName != null)
 				return false;
-		} else if (!userName.equals(other.userName))
+		} 
+		else if (!userName.equals(other.userName))
 			return false;
 		return true;
 	}

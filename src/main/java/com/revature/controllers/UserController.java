@@ -24,6 +24,15 @@ import com.revature.services.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
+/**
+ * UserController takes care of handling our requests to /users.
+ * It provides methods that can perform tasks like all users, user by role (true or false), user by username,
+ * user by role and location, add user, update user and delete user by id. 
+ * 
+ * @author Adonis Cabreja
+ *
+ */
+
 @RestController
 @RequestMapping("/users")
 @CrossOrigin
@@ -33,7 +42,16 @@ public class UserController {
 	@Autowired
 	private UserService us;
 	
-	@ApiOperation(value="Returns all users", tags= {"User"}, notes="An optional is-driver parameter would filter riders and drivers")
+	/**
+	 * HTTP GET method (/users)
+	 * 
+	 * @param isDriver represents if the user is a driver or rider.
+	 * @param username represents the user's username.
+	 * @param location represents the batch's location.
+	 * @return A list of all the users, users by is-driver, user by username and users by is-driver and location.
+	 */
+	
+	@ApiOperation(value="Returns all users", tags= {"User"}, notes="Can also filter by is-driver, location and username")
 	@GetMapping
 	public List<User> getUsers(@RequestParam(name="is-driver",required=false)Boolean isDriver,
 							   @RequestParam(name="username",required=false)String username,
@@ -50,13 +68,27 @@ public class UserController {
 		return us.getUsers();
 	}
 	
+	/**
+	 * HTTP GET (users/{id})
+	 * 
+	 * @param id represents the user's id.
+	 * @return A user that matches the id.
+	 */
+	
 	@ApiOperation(value="Returns user by id", tags= {"User"})
 	@GetMapping("/{id}")
 	public User getUserById(@PathVariable("id")int id) {
 		
 		return us.getUserById(id);
 	}
-		
+	
+	/**
+	 * HTTP POST method (/users)
+	 * 
+	 * @param user represents the new User object being sent.
+	 * @return The newly created object with a 201 code.
+	 */
+	
 	@ApiOperation(value="Adds a new user", tags= {"User"})
 	@PostMapping
 	public ResponseEntity<User> addUser(@Valid @RequestBody User user) {
@@ -64,12 +96,26 @@ public class UserController {
 		return new ResponseEntity<>(us.addUser(user), HttpStatus.CREATED);
 	}
 	
+	/**
+	 * HTTP PUT method (/users)
+	 * 
+	 * @param user represents the updated User object being sent.
+	 * @return The newly updated object.
+	 */
+	
 	@ApiOperation(value="Updates user by id", tags= {"User"})
 	@PutMapping("/{id}")
 	public User updateUser(@Valid @RequestBody User user) {
 		
 		return us.updateUser(user);
 	}
+	
+	/**
+	 * HTTP DELETE method (/users)
+	 * 
+	 * @param id represents the user's id.
+	 * @return A string that says which user was deleted.
+	 */
 	
 	@ApiOperation(value="Deletes user by id", tags= {"User"})
 	@DeleteMapping("/{id}")

@@ -10,6 +10,13 @@ import javax.validation.constraints.NotBlank;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * Batch class that represents a user's batch. All batches have a batch number and a location.
+ * 
+ * @author Adonis Cabreja
+ *
+ */
+
 @Component
 @Entity
 @Table(name="batches")
@@ -72,7 +79,8 @@ public class Batch implements Serializable {
 		if (batchLocation == null) {
 			if (other.batchLocation != null)
 				return false;
-		} else if (!batchLocation.equals(other.batchLocation))
+		} 
+		else if (!batchLocation.equals(other.batchLocation))
 			return false;
 		if (batchNumber != other.batchNumber)
 			return false;
