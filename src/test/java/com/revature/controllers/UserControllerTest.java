@@ -55,7 +55,10 @@ public class UserControllerTest {
 	@Test
 	public void testGettingUserById() throws Exception {
 		
-		User user = new User(1, "userName", new Batch(), "adonis", "cabreja", "adonis@gmail.com", "123-456-789", true, true, true);
+		User user = new User(1, "userName", new Batch(), "adonis", "cabreja", "adonis@gmail.com", "123-456-789");
+		user.setDriver(true);
+		user.setActive(true);
+		user.setAcceptingRides(true);
 		when(us.getUserById(1)).thenReturn(user);
 		
 		mvc.perform(get("/users/{id}", 1))
@@ -67,7 +70,7 @@ public class UserControllerTest {
 	public void testGettingUserByUsername() throws Exception {
 		
 		List<User> users = new ArrayList<>();
-		users.add(new User(1, "userName", new Batch(), "adonis", "cabreja", "adonis@gmail.com", "123-456-789", true, true, true));
+		users.add(new User(1, "userName", new Batch(), "adonis", "cabreja", "adonis@gmail.com", "123-456-789"));
 		when(us.getUserByUsername("userName")).thenReturn(users);
 		
 		mvc.perform(get("/users?username=userName"))
@@ -79,7 +82,11 @@ public class UserControllerTest {
 	public void testGettingUserByRole() throws Exception {
 		
 		List<User> users = new ArrayList<>();
-		users.add(new User(1, "userName", new Batch(), "adonis", "cabreja", "adonis@gmail.com", "123-456-789", true, true, true));
+		User user = new User(1, "userName", new Batch(), "adonis", "cabreja", "adonis@gmail.com", "123-456-789");
+		user.setDriver(true);
+		user.setActive(true);
+		user.setAcceptingRides(true);
+		users.add(user);
 		when(us.getUserByRole(true)).thenReturn(users);
 		
 		mvc.perform(get("/users?is-driver=true"))
@@ -91,7 +98,11 @@ public class UserControllerTest {
 	public void testGettingUserByRoleAndLocation() throws Exception {
 		
 		List<User> users = new ArrayList<>();
-		users.add(new User(1, "userName", new Batch(), "adonis", "cabreja", "adonis@gmail.com", "123-456-789", true, true, true));
+		User user = new User(1, "userName", new Batch(), "adonis", "cabreja", "adonis@gmail.com", "123-456-789");
+		user.setDriver(true);
+		user.setActive(true);
+		user.setAcceptingRides(true);
+		users.add(user);
 		when(us.getUserByRoleAndLocation(true, "location")).thenReturn(users);
 		
 		mvc.perform(get("/users?is-driver=true&location=location"))
@@ -103,10 +114,12 @@ public class UserControllerTest {
 	public void testAddingUser() throws Exception {
 		
 		Batch batch = new Batch(111, "address");
-		User user = new User(1, "userName", batch, "adonis", "cabreja", "adonis@gmail.com", "123-456-789", true, true, true);
+		User user = new User(1, "userName", batch, "adonis", "cabreja", "adonis@gmail.com", "123-456-789");
+		user.setDriver(true);
+		user.setActive(true);
+		user.setAcceptingRides(true);
 		
-		when(us.addUser(new User(1, "userName", batch, "adonis", "cabreja", "adonis@gmail.com", "123-456-789", true, true, true)))
-			.thenReturn(user);
+		when(us.addUser(user)).thenReturn(user);
 		
 		mvc.perform(post("/users").contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsString(user)))
 		   .andExpect(status().isCreated())
@@ -117,10 +130,9 @@ public class UserControllerTest {
 	public void testUpdatingUser() throws Exception {
 		
 		Batch batch = new Batch(111, "address");
-		User user = new User(1, "userName", batch, "adonis", "cabreja", "adonis@gmail.com", "123-456-789", true, true, true);
+		User user = new User(1, "userName", batch, "adonis", "cabreja", "adonis@gmail.com", "123-456-789");
 		
-		when(us.updateUser(new User(1, "userName", batch, "adonis", "cabreja", "adonis@gmail.com", "123-456-789", true, true, true)))
-			.thenReturn(user);
+		when(us.updateUser(user)).thenReturn(user);
 		
 		mvc.perform(put("/users/{id}", 1).contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsString(user)))
 		   .andExpect(status().isOk())
@@ -130,7 +142,7 @@ public class UserControllerTest {
 	@Test
 	public void testDeletingUser() throws Exception {
 		
-		User user = new User(1, "userName", new Batch(), "adonis", "cabreja", "adonis@gmail.com", "123-456-789", true, true, true);
+		User user = new User(1, "userName", new Batch(), "adonis", "cabreja", "adonis@gmail.com", "123-456-789");
 		String returnedStr = "User with id: " + user.getUserId() + " was deleted.";
 		when(us.deleteUserById(1)).thenReturn(returnedStr);
 		

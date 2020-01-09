@@ -175,9 +175,7 @@ public class Car implements Serializable {
 		} 
 		else if (!user.equals(other.user))
 			return false;
-		if (year != other.year)
-			return false;
-		return true;
+		return year == other.year;
 	}
 
 	@Override
