@@ -71,7 +71,7 @@ public class User implements Serializable {
 	}
 	
 	public User(int userId, String userName, Batch batch, String firstName, String lastName, String email,
-			String phoneNumber, boolean isDriver, boolean isActive, boolean isAcceptingRides) {
+			String phoneNumber) {
 		super();
 		this.userId = userId;
 		this.userName = userName;
@@ -80,9 +80,6 @@ public class User implements Serializable {
 		this.lastName = lastName;
 		this.email = email;
 		this.phoneNumber = phoneNumber;
-		this.isDriver = isDriver;
-		this.isActive = isActive;
-		this.isAcceptingRides = isAcceptingRides;
 	}
 
 	public int getUserId() {
