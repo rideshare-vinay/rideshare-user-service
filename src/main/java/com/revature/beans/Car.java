@@ -50,7 +50,7 @@ public class Car implements Serializable {
 	private int year;
 	
 	@OneToOne
-	@JoinColumn(name="user_id")
+	@JoinColumn(name="user_id", unique=true)
 	private User user;
 	
 	public Car() {
