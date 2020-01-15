@@ -37,8 +37,10 @@ CREATE TABLE public.cars (
 	car_year int4 NULL,
 	user_id int4 NULL,
 	CONSTRAINT cars_pkey PRIMARY KEY (car_id),
-	CONSTRAINT cars_fkey FOREIGN KEY (user_id) REFERENCES users(user_id)
+	CONSTRAINT cars_unique UNIQUE (user_id)
 );
+
+ALTER TABLE public.cars ADD CONSTRAINT cars_fkey FOREIGN KEY (user_id) REFERENCES users(user_id);
 
 -- USER TABLE
 
