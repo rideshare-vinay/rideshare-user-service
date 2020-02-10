@@ -12,7 +12,8 @@ spring:
     password:
     platform: org.hibernate.dialect.H2Dialect
     initialization-mode: embedded
-
+server:
+  port: 9000
 management:
   endpoint:
     health:
