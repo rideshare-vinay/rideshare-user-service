@@ -12,7 +12,7 @@ spring:
     password:
     platform: org.hibernate.dialect.H2Dialect
     initialization-mode: embedded
-
+  
 management:
   endpoint:
     health:
@@ -37,3 +37,7 @@ spring:
         jdbc:
           lob:
             non_contextual_creation: true
+            
+---
+server:
+  port: 9000  
