@@ -22,7 +22,7 @@ import com.google.gson.JsonArray;
 
 @RestController
 @CrossOrigin
-public class googleMapsController {
+public class GoogleMapsController {
 	
 	
 	
