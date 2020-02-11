@@ -12,6 +12,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 import org.springframework.stereotype.Component;
 
 /**
@@ -36,6 +39,7 @@ public class User implements Serializable {
 	
 	@NotBlank
 	@Column(name="user_name")
+	@Size(min=3, max=12)
 	private String userName;
 	
 	@ManyToOne
@@ -44,13 +48,16 @@ public class User implements Serializable {
 	
 	@NotBlank
 	@Column(name="first_name")
+	@Size(min = 1, max = 20)
 	private String firstName;
 	
 	@NotBlank
 	@Column(name="last_name")
+	@Size(min = 1, max = 20)
 	private String lastName;
 	
 	@Email
+	@Pattern(regexp="^.+@.+\\.[a-z]{2,4}$")
 	private String email;
 	
 	@NotBlank
