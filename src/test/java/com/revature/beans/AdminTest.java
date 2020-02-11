@@ -11,7 +11,7 @@ public class AdminTest {
 	private Admin admin2;
 
 	@Before
-	public void setNewCar() {
+	public void setDemo() {
 		admin = new Admin(1, "userName");
 		admin2 = new Admin(1, "userName");
 	}

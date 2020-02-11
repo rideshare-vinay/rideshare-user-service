@@ -13,7 +13,7 @@ public class CarTest {
 	private Batch batch;;
 
 	@Before
-	public void setNewCar() {
+	public void setDemo() {
 		batch = new Batch(123, "location");
 		user = new User(1, "userName", batch, "adonis", "cabreja", "adonis@gmail.com", "123-456-7890");
 		car = new Car(1, "white", 5, "Jeep", "Compass", 2019, user);
