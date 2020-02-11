@@ -1,7 +1,14 @@
+server:
+  port : 9000
+  
+
 spring:
   application:
     name: rideshare
   jpa:
+    show-sql: true
+    properties:
+      hibernate.format_sql: true
     database: h2
     hibernate:
       ddl-auto: update
@@ -21,19 +28,19 @@ management:
       enabled: true
     mappings:
       enabled: true
----
-spring:
-  profiles: dev
-  datasource:
-    url: jdbc:postgresql://${db_url}:5432/postgres
-    username: ${user_name}
-    password: ${pass_word}
-    initialization-mode: never
-    driver-class-name: org.postgresql.Driver
-  jpa:
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-        jdbc:
-          lob:
-            non_contextual_creation: true
+#---
+#spring:
+#  profiles: dev
+#  datasource:
+#    url: jdbc:postgresql://${db_url}:5432/postgres
+#    username: ${user_name}
+#    password: ${pass_word}
+#    initialization-mode: never
+#    driver-class-name: org.postgresql.Driver
+#  jpa:
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.PostgreSQLDialect
+#        jdbc:
+#          lob:
+#            non_contextual_creation: true
