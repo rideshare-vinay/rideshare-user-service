@@ -23,13 +23,21 @@ public class CarTest {
 	@Test
 	public void testToString() {
 		String actual = car.toString();
-		String expected = "Car [carId=1, color=white, seats=5, make=Jeep, model=Compass, year=2019, user=User [userId=1, userName=userName, batch=Batch [batchNumber=123, batchLocation=location], firstName=adonis, lastName=cabreja, email=adonis@gmail.com, phoneNumber=123-456-7890, isDriver=false, isActive=false, isAcceptingRides=false]]";
+		String expected = "Car [carId=" + car.getCarId() + ", color=" + car.getColor() 
+				+ ", seats=" + car.getSeats() + ", make=" + car.getMake() + ", model=" 
+				+ car.getModel() + ", year=" + car.getYear() + ", user=" + user + "]";
 		assertEquals(expected, actual);
 	}
 	
 	@Test
 	public void testHashCode() {
 		assertTrue(car.hashCode() == comparedToCar.hashCode());
+		assertNotNull(car.hashCode());
+		car.setColor(null);
+		car.setMake(null);
+		car.setModel(null);
+		car.setUser(null);
+		assertNotNull(car.hashCode());
 	}
 	
 	@Test
@@ -48,10 +56,47 @@ public class CarTest {
 		assertFalse(car.equals(user));
 	}
 	
-//	@Test
-//	public void testEqualsCarNull() {
-//		Car other = null;
-//		assertFalse(car.equals(other));
-//	}
+	@Test
+	public void testEqualsMakeNull() {
+		car.setMake(null);
+		assertFalse(car.equals(comparedToCar));
+	}
+	
+	@Test
+	public void testEqualsMakeNotTheSameAsCar() {
+		car.setMake("newMake");
+		assertFalse(car.equals(comparedToCar));
+	}
 
+	@Test
+	public void testEqualsModelNull() {
+		car.setModel(null);
+		assertFalse(car.equals(comparedToCar));
+	}
+	
+	@Test
+	public void testEqualsModelNotTheSameAsCar() {
+		car.setModel("newModel");
+		assertFalse(car.equals(comparedToCar));
+	}
+	
+	@Test
+	public void testEqualsSeatNotTheSameAsCar() {
+		car.setSeats(2);
+		assertFalse(car.equals(comparedToCar));
+	}
+	
+	@Test
+	public void testEqualsUserNull() {
+		car.setUser(null);
+		assertFalse(car.equals(comparedToCar));
+	}
+	
+	@Test
+	public void testEqualsUserNotTheSameAsCar() {
+		User otherUser = new User(2, "otherUserName", batch, "adonis", "cabreja", "adonis@gmail.com", "123-456-7890");
+		car.setUser(otherUser);
+		car.setYear(2019);
+		assertFalse(car.equals(comparedToCar));
+	}
 }

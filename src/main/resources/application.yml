@@ -5,10 +5,7 @@ spring:
   application:
     name: rideshare
   jpa:
-    show-sql: true
-    properties:
-      hibernate.format_sql: true
-    database: h2
+#    database: h2
     show-sql: true
     properties:
       hibernate.format_sql: true
@@ -45,8 +42,3 @@ management:
 #        dialect: org.hibernate.dialect.PostgreSQLDialect
 #        jdbc:
 #          lob:
-<<<<<<< HEAD
-#            non_contextual_creation: true
-=======
-#            non_contextual_creation: true
->>>>>>> b26c205da0fc689bc13a6022cab201373ed8a8a7
