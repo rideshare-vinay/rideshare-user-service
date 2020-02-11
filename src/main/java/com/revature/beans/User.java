@@ -17,6 +17,8 @@ import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;
 
+import io.swagger.annotations.ApiModelProperty;
+
 /**
  * User class that represents a driver/rider. All users have an id, username, corresponding batch, first name,
  * last name, email, phone number, isDriver, isActive and isAcceptingRides.
@@ -39,7 +41,8 @@ public class User implements Serializable {
 	
 	@NotBlank
 	@Column(name="user_name")
-	@Size(min=3, max=12)
+	@Size(min=3, max=12, message="Username must be between 3 and 12 characters")
+	@ApiModelProperty(allowableValues="range[3,12]", value="Username containing 3-12 characters")
 	private String userName;
 	
 	@ManyToOne
@@ -48,20 +51,27 @@ public class User implements Serializable {
 	
 	@NotBlank
 	@Column(name="first_name")
-	@Size(min = 1, max = 20)
+	@Size(min = 1, max = 20, message="Name must be between 1 to 20 letters")
+	@Pattern(regexp="[a-zA-Z]+")
+	@ApiModelProperty(allowableValues="range[1,20]", value="First name containing 1-20 letters")
 	private String firstName;
 	
 	@NotBlank
 	@Column(name="last_name")
-	@Size(min = 1, max = 20)
+	@Size(min = 1, max = 20, message="Name must be between 1 to 20 letters")
+	@Pattern(regexp="[a-zA-Z]+")
+	@ApiModelProperty(allowableValues="range[1,20]", value="Last name containing 1-20 letters")
 	private String lastName;
 	
 	@Email
-	@Pattern(regexp="^.+@.+\\.[a-z]{2,4}$")
+	@Pattern(regexp="^.+@.+\\.[a-z]{2,4}$", message="Invalid email")
+	@ApiModelProperty(value="Email with top-level domains with 2-4 letters")
 	private String email;
 	
 	@NotBlank
 	@Column(name="phone_number")
+	@Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="Invalid phone number")
+	@ApiModelProperty(value="Phone number in the form (xxx)xxx-xxxx, xxx-xxx-xxxx or xxxxxxxxxx")
 	private String phoneNumber;
 	
 	@Column(name="is_driver")
