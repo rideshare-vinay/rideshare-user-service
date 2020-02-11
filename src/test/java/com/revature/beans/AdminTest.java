@@ -19,13 +19,16 @@ public class AdminTest {
 	@Test
 	public void testToString() {
 		String actual = admin.toString();
-		String expected = "Admin [adminId=1, userName=userName]";
+		String expected = "Admin [adminId=" + admin.getAdminId() + ", userName=" + admin.getUserName() + "]";
 		assertEquals(expected, actual);
 	}
 	
 	@Test
 	public void testHashCode() {
 		assertTrue(admin.hashCode() == admin2.hashCode());
+		admin.setUserName(null);
+		assertNotNull(admin.hashCode());
+		assertNotNull(admin);
 	}
 	
 	@Test
@@ -46,14 +49,21 @@ public class AdminTest {
 	}
 	
 	@Test
-	public void testEqualsAdminNull() {
-		Admin other = null;
+	public void testEqualsOtherAdminId() {
+		Admin other = new Admin(2, "userName2");
 		assertFalse(admin.equals(other));
 	}
 	
 	@Test
-	public void testEqualsOtherAdminId() {
-		Admin other = new Admin(2, "userName2");
+	public void testEqualsUserNameNull() {
+		Admin other = new Admin(1, "userName");
+		admin.setUserName(null);
+		assertFalse(admin.equals(other));
+	}
+	
+	@Test
+	public void testEqualsUserNameNotTheSameAsAdmin() {
+		Admin other = new Admin(1, "otherUserName");
 		assertFalse(admin.equals(other));
 	}
 
