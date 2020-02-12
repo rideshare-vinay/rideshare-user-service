@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.revature.beans.User;
 import com.revature.services.RideRecommendationsService;
 
+
 @RestController
 @CrossOrigin
 public class GoogleMapsController {
+
 	@Autowired
 	private RideRecommendationsService rrs;
 	
@@ -22,5 +24,6 @@ public class GoogleMapsController {
 	public List<User> getRecommendations(@RequestBody User user, @PathVariable("num") int num){
 		return rrs.getRideRecommendations(user, num);
 	}
+
 
 }
