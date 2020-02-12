@@ -51,14 +51,14 @@ public class User implements Serializable {
 	
 	@NotBlank
 	@Column(name="first_name")
-	@Size(min = 1, max = 20, message="Name must be between 1 to 20 letters")
+	@Size(min = 1, max = 20, message="Name must be between 1 to 20 characters")
 	@Pattern(regexp="[a-zA-Z\\s\\-]+")
 	@ApiModelProperty(allowableValues="range[1,20]", value="First name containing 1-20 letters, hyphens and spaces")
 	private String firstName;
 	
 	@NotBlank
 	@Column(name="last_name")
-	@Size(min = 1, max = 20, message="Name must be between 1 to 20 letters")
+	@Size(min = 1, max = 20, message="Name must be between 1 to 20 characters")
 	@Pattern(regexp="[a-zA-Z\\s\\-]+")
 	@ApiModelProperty(allowableValues="range[1,20]", value="Last name containing 1-20 letters, hyphens and spaces")
 	private String lastName;
