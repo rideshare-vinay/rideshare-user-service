@@ -1,10 +1,12 @@
 package com.revature.services.impl;
 
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.google.common.cache.CacheBuilder;
@@ -12,13 +14,12 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.revature.beans.User;
 import com.revature.beans.googlemaps.DistanceMatrix;
-import com.revature.beans.googlemaps.PlaceDetails;
-import com.revature.beans.googlemaps.PlaceDetailsResponse;
 import com.revature.exceptions.GoogleApiException;
 import com.revature.services.BatchService;
 import com.revature.services.RideRecommendationsService;
 import com.revature.services.UserService;
 
+@Service
 public class RideRecommendationsServiceImpl implements RideRecommendationsService {
 	// minSearchRadius is the minimum distance between two users (in km) for which we will actually hit the google maps api.
 	// anything closer and there is simply no need.  The effective distance will be treated as 0 for recommendations.
@@ -30,7 +31,7 @@ public class RideRecommendationsServiceImpl implements RideRecommendationsServic
 			  //+ "{coordinates}&key={apiKey}";
 			 
 			
-	private String apiKey = "AIzaSyD7Ku7bRo9HCKfmk7PSB-K02yt5wVywPX0";
+	private String apiKey = "get your own dang key";
 	private RestTemplate restTemplate = new RestTemplate();
 	
 	
