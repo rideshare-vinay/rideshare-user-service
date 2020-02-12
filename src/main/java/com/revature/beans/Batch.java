@@ -42,6 +42,10 @@ public class Batch implements Serializable {
 		this.batchLocation = batchLocation;
 	}
 
+	public Batch(int batchNumber) {
+		this.batchNumber=batchNumber;
+	}
+	
 	public int getBatchNumber() {
 		return batchNumber;
 	}
