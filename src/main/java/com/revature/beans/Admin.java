@@ -8,9 +8,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import io.swagger.annotations.ApiModel;
 
 /**
  * Admin class that represents the admins. All admins have an id and a username.
@@ -18,10 +24,11 @@ import org.springframework.stereotype.Component;
  * @author Adonis Cabreja
  *
  */
-
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Component
 @Entity
 @Table(name="admins")
+@ApiModel()
 public class Admin implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -31,7 +38,8 @@ public class Admin implements Serializable {
 	@Column(name="admin_id")
 	private int adminId;
 	
-	@NotBlank
+	@NotBlank(message="Admin user name cannot be blank.")
+	@NotNull(message="Admin user name cannot be null.")
 	@Column(name="user_name")
 	private String userName;
 	
@@ -94,5 +102,4 @@ public class Admin implements Serializable {
 	public String toString() {
 		return "Admin [adminId=" + adminId + ", userName=" + userName + "]";
 	}
-	
 }
