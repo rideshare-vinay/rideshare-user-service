@@ -19,6 +19,10 @@ import org.springframework.stereotype.Component;
  * last name, email, phone number, isDriver, isActive and isAcceptingRides.
  * 
  * @author Adonis Cabreja
+ * 
+ * Modification history:
+ * 
+ * 10Feb2020	address, latitude, longitude added to support ride recommendation functionality
  *
  */
 
@@ -56,6 +60,18 @@ public class User implements Serializable {
 	@NotBlank
 	@Column(name="phone_number")
 	private String phoneNumber;
+	
+	@NotBlank
+	@Column(name="address")
+	private String address;
+	
+	@NotBlank
+	@Column(name="latitude")
+	private double latitude;
+	
+	@NotBlank
+	@Column(name="longitude")
+	private double longitude;
 	
 	@Column(name="is_driver")
 	private boolean isDriver;
@@ -160,6 +176,30 @@ public class User implements Serializable {
 
 	public void setAcceptingRides(boolean isAcceptingRides) {
 		this.isAcceptingRides = isAcceptingRides;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+
+	public double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
 	}
 
 	@Override
