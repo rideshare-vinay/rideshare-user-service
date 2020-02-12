@@ -65,11 +65,9 @@ public class User implements Serializable {
 	@Column(name="address")
 	private String address;
 	
-	@NotBlank
 	@Column(name="latitude")
 	private double latitude;
 	
-	@NotBlank
 	@Column(name="longitude")
 	private double longitude;
 	
