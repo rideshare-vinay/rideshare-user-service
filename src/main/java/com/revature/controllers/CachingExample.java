@@ -3,7 +3,9 @@ package com.revature.controllers;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -14,7 +16,11 @@ import com.google.common.cache.LoadingCache;
 import com.revature.beans.googlemaps.PlaceDetails;
 import com.revature.beans.googlemaps.PlaceDetailsResponse;
 import com.revature.beans.googlemaps.PlaceLocation;
-import com.revature.exceptions.PlacesException;
+import com.revature.exceptions.GoogleApiException;
+import com.revature.services.RideRecommendationsService;
+import com.revature.services.UserService;
+import com.revature.services.impl.RideRecommendationsServiceImpl;
+import com.revature.services.impl.UserServiceImpl;
 
 
 @RestController
@@ -29,6 +35,18 @@ public class CachingExample {
 	private String apiKey = "get your own key";
 	//private String placeId = "ChIJa147K9HX3IAR-lwiGIQv9i4";
 	private RestTemplate restTemplate = new RestTemplate();
+	
+	@GetMapping("/test")
+	public String testDistanceCalculation() {
+		RideRecommendationsService rs = new RideRecommendationsServiceImpl();
+		try {
+			return ""+rs.roadKilometersBetweenPoints(32.735422, -97.097251, 32.720891, -97.080227);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
 	@RequestMapping("/test/{id}")
 	public PlaceLocation test(@PathVariable("id") String placeId) {
@@ -58,7 +76,7 @@ public class CachingExample {
 	      if (response.getResult() != null) {
 	    	  return response.getResult();
 	      } else {
-	    	  throw new PlacesException("Unable to find details for reference: " + searchId);
+	    	  throw new GoogleApiException("Unable to find details for reference: " + searchId);
 	      }
 	    }
 	});
@@ -66,7 +84,7 @@ public class CachingExample {
 	public PlaceDetails getPlaceDetails(String searchId) throws Exception{
 		  try {
 		    return placeDetails.get(searchId);
-		  } catch (PlacesException e) {
+		  } catch (GoogleApiException e) {
 		    throw e;
 		  }
 		}
