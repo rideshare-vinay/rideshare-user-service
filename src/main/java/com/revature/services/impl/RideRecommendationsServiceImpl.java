@@ -57,7 +57,8 @@ public class RideRecommendationsServiceImpl implements RideRecommendationsServic
 		if (numRecommendations<1) {
 			return null;
 		}
-		List<User> riderCandidates = us.getUserByRoleAndLocation(!(user.isDriver()), user.getBatch().getBatchLocation());
+		User tempUser=us.getUserById(user.getUserId());
+		List<User> riderCandidates = us.getUserByRoleAndLocation(!(user.isDriver()), tempUser.getBatch().getBatchLocation());
 		List<User> recommendations = new ArrayList<>();
 		List<Double> recommendationsDistance=new ArrayList<>();
 		int currentRecommendations=0;
@@ -153,7 +154,6 @@ public class RideRecommendationsServiceImpl implements RideRecommendationsServic
 	      String DISTANCE_MATRIX_URL = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&"
 	  			  + coordinates+"&key="+apiKey;
 	      DistanceMatrix response = restTemplate.getForObject(DISTANCE_MATRIX_URL, DistanceMatrix.class);
-	      System.out.println(response);
 	      if (response != null) {
 	    	  return response;
 	      } else {
