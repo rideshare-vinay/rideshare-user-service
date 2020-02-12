@@ -15,20 +15,18 @@ import com.google.common.cache.LoadingCache;
 import com.revature.beans.User;
 import com.revature.beans.googlemaps.DistanceMatrix;
 import com.revature.exceptions.GoogleApiException;
-import com.revature.services.BatchService;
 import com.revature.services.RideRecommendationsService;
 import com.revature.services.UserService;
 
 @Service
 public class RideRecommendationsServiceImpl implements RideRecommendationsService {
+	
 	// minSearchRadius is the minimum distance between two users (in km) for which we will actually hit the google maps api.
-	// anything closer and there is simply no need.  The effective distance will be treated as 0 for recommendations.
+	// anything closer and there is simply no need.
 	private final double minSearchRadius=0.2d;
+	
 	// maxSearchRadius is the maximum distance between riders where we will consider a recommendation.
 	private final double maxSearchRadius=20.0d;
-	
-	//private static final String DISTANCE_MATRIX_URL = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&"
-			  //+ "{coordinates}&key={apiKey}";
 			 
 			
 	private String apiKey = "get your own dang key";
@@ -38,16 +36,16 @@ public class RideRecommendationsServiceImpl implements RideRecommendationsServic
 	@Autowired
 	private UserService us;
 	
-	@Autowired
-	private BatchService bs;
-	
-	
 	/***********************
 	 *  
 	 *  getRideRecommendations returns a maximum number of recommendations equal to or less than numRecommendations 
 	 *  that live closest to user (if there are not enough candidates that live close enough, fewer are returned).
 	 *  If user is a driver, function returns candidates that are not drivers.
 	 *  If user is not a driver, function returns drivers.
+	 *  
+	 *  @user -- user for whom we are getting recommendations 
+	 *  @numRecommendations -- how many recommendations to return
+	 *  @returns -- list of users recommended by algorithm
 	 *  
 	 *  Modification History:
 	 *  
@@ -107,6 +105,12 @@ public class RideRecommendationsServiceImpl implements RideRecommendationsServic
 	 *  calculateKilometersBetweenPoints returns the straight line distance between a pair of lat, long coordinates.
 	 *  The formula takes into account the narrowing of a degree longitude as latitude approaches +-90 degrees.
 	 * 
+	 *  @lat1 -- latitude of first coordinate
+	 *  @long1 -- longitude of first coordinate
+	 *  @lat2 -- latitude of second coordinate
+	 *  @long2 -- longitude of second coordinate
+	 *  @returns -- straight line distance between provided coordinates
+	 * 
 	 *  Modification History:
 	 *  
 	 *  	Written: 10Feb2020
@@ -129,6 +133,11 @@ public class RideRecommendationsServiceImpl implements RideRecommendationsServic
 	 *  Calls can be made to distanceMatrix.get()
 	 *  Returns a DistanceMatrix object which at this time has been trimmed down to provide distance and duration data but could be
 	 *  	expanded by editing the DistanceMatrix**** set of POJOs in com.revature.beans.googlemaps
+	 *  
+	 *  @coordinates -- coordinates of request composed into a string portion of the api call.
+	 *  	-- it is necessary to pass the data in this way because the parameters must function as the string key
+	 *  	   of the key/value pairs stored in our cache.
+	 *  @returns -- DistanceMatrix object containing json information from api call
 	 *  
 	 *  Modification History:
 	 *  
@@ -158,6 +167,12 @@ public class RideRecommendationsServiceImpl implements RideRecommendationsServic
 	 * 	Function returns road distance between two sets of lat/long coordinates in kilometers.
 	 * 	Uses google maps api through use of distanceMatrix.get()
 	 * 	Conversion of the two sets of lat/long into a string is to fit into the key/value pairing of the cache used by the function.
+	 * 
+	 *  @lat1 -- latitude of first coordinate
+	 *  @long1 -- longitude of first coordinate
+	 *  @lat2 -- latitude of second coordinate
+	 *  @long2 -- longitude of second coordinate
+	 *  @returns -- road distance value in kilometers between two coordinates
 	 * 
 	 *  Modification History:
 	 *  

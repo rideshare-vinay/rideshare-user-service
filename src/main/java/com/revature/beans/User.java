@@ -19,6 +19,10 @@ import org.springframework.stereotype.Component;
  * last name, email, phone number, isDriver, isActive and isAcceptingRides.
  * 
  * @author Adonis Cabreja
+ * 
+ * Modification history:
+ * 
+ * 10Feb2020	address, latitude, longitude added to support ride recommendation functionality
  *
  */
 

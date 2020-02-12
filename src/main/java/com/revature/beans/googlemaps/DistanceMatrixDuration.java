@@ -3,6 +3,15 @@ package com.revature.beans.googlemaps;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+
+/**********************************
+ * 
+ * All of the DistanceMatrix*** classes are used to deconstruct the json returned by the google maps api distance matrix call.
+ * This particular class is not currently used (11Feb2020) for the ride recommendation algorithm.
+ * However, it has been left in the code base to enable the algorithm to make recommendations based upon
+ * drive time rather than drive distance if future developers choose to do so.
+ *
+ **********************************/
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DistanceMatrixDuration {
 	@JsonProperty("text")

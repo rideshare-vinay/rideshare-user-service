@@ -20,6 +20,15 @@ public class GoogleMapsController {
 	@Autowired
 	private RideRecommendationsService rrs;
 	
+	
+	/****************************
+	 * 
+	 * This function is just the end point to make calls to our recommendation algorithm from the front end.
+	 * 
+	 * @param user -- user for whom ride recommendations are being made
+	 * @param num -- how many recommendations do we want returned
+	 * @return -- list of drivers or riders returned by recommendation
+	 ****************************/
 	@PostMapping("/recommendations/{num}")
 	public List<User> getRecommendations(@RequestBody User user, @PathVariable("num") int num){
 		return rrs.getRideRecommendations(user, num);
