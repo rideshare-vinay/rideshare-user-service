@@ -16,15 +16,19 @@ public class DistanceMatrixElements {
 	
 	@JsonProperty("duration")
 	private DistanceMatrixDuration duration;
+	
+	@JsonProperty("status")
+	private String status;
 
 	public DistanceMatrixElements() {
 		
 	}
 	
-	public DistanceMatrixElements(DistanceMatrixDistance distance, DistanceMatrixDuration duration) {
+	public DistanceMatrixElements(DistanceMatrixDistance distance, DistanceMatrixDuration duration, String status) {
 		super();
 		this.distance = distance;
 		this.duration = duration;
+		this.status = status;
 	}
 
 	public DistanceMatrixDistance getDistance() {
@@ -41,6 +45,14 @@ public class DistanceMatrixElements {
 
 	public void setDuration(DistanceMatrixDuration duration) {
 		this.duration = duration;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 	

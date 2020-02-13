@@ -31,8 +31,6 @@ public class GoogleMapsController {
 	 ****************************/
 	@PostMapping("/recommendations/{num}")
 	public List<User> getRecommendations(@RequestBody User user, @PathVariable("num") int num){
-		System.out.println(user);
-		System.out.println("num ="+num);
 		return rrs.getRideRecommendations(user, num);
 	}
 
