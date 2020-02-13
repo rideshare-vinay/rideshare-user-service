@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,15 +23,16 @@ import com.revature.exceptions.GoogleApiException;
 import com.revature.services.RideRecommendationsService;
 import com.revature.services.UserService;
 
+
 @Service
 public class RideRecommendationsServiceImpl implements RideRecommendationsService {
 	
-	// minSearchRadius is the minimum distance between two users (in km) for which we will actually hit the google maps api.
+	// MIN_SEARCH_RADIUS is the minimum distance between two users (in km) for which we will actually hit the google maps api.
 	// anything closer and there is simply no need.
-	private final double minSearchRadius=0.2d;
+	private static final double MIN_SEARCH_RADIUS=0.2d;
 	
-	// maxSearchRadius is the maximum distance between riders where we will consider a recommendation.
-	private final double maxSearchRadius=20.0d;
+	// MAX_SEARCH_RADIUS is the maximum distance between riders where we will consider a recommendation.
+	private static final double MAX_SEARCH_RADIUS=20.0d;
 	
 	private String apiKey = "";
 	
@@ -61,8 +63,14 @@ public class RideRecommendationsServiceImpl implements RideRecommendationsServic
 		} catch (IOException e) {
 			System.out.println("io exception");
 			apiKey="";
+		} finally {
+			try {
+				if(br!=null) {
+					br.close();
+				}
+			} catch (IOException e) {}
 		}
-		System.out.println("apikey = "+apiKey);
+		
 	}
 	
 	/***********************
@@ -84,21 +92,24 @@ public class RideRecommendationsServiceImpl implements RideRecommendationsServic
 	@Override
 	public List<User> getRideRecommendations(User user, int numRecommendations) {
 		if (numRecommendations<1) {
-			return null;
+			return new ArrayList<>();
 		}
 		User tempUser=us.getUserById(user.getUserId());
 		List<User> riderCandidates = us.getUserByRoleAndLocation(!(user.isDriver()), tempUser.getBatch().getBatchLocation());
 		List<User> recommendations = new ArrayList<>();
 		List<Double> recommendationsDistance=new ArrayList<>();
 		int currentRecommendations=0;
-		Double distance=0d;
+		Double distance;
 		List<User> apiUsers = new ArrayList<>();
 		List<Double> apiDist = new ArrayList<>();
 		boolean added=false;
 		for(User u:riderCandidates) {
+			if(!u.isAcceptingRides() || !u.isActive()) {
+				continue;
+			}
 			distance=calculateKilometersBetweenPoints(user.getLatitude(), user.getLongitude(), u.getLatitude(), u.getLongitude());
-			if(distance<maxSearchRadius) {
-				if(distance>minSearchRadius) {
+			if(distance<MAX_SEARCH_RADIUS) {
+				if(distance>MIN_SEARCH_RADIUS) {
 					apiDist.add(distance);
 					apiUsers.add(u);
 				}else {
@@ -200,27 +211,27 @@ public class RideRecommendationsServiceImpl implements RideRecommendationsServic
 	 * @param user -- origin for the distance calculation
 	 * @param dUsers -- multiple possible destination users for user
 	 * @return -- the whole object defining all of the distances and drive durations from user to the dUsers
+	 * @throws ExecutionException 
+	 * @throws  
 	 * @throws Exception 
 	 */
-	public DistanceMatrix multipleUserDistance(User user, List<User>dUsers) throws Exception {
-		if (dUsers.size()==0) {
+	public DistanceMatrix multipleUserDistance(User user, List<User>dUsers) throws ExecutionException {
+		if (dUsers.isEmpty()) {
 			//nothing passed in so nothing returned.
 			return null;	
 		}
 		boolean firstElement=true;
-		String coordinates = "origins="+user.getLatitude()+","+user.getLongitude()+"&destinations=";
+		StringBuilder coordinates = new StringBuilder("origins="+user.getLatitude()+","+user.getLongitude()+"&destinations=");
 		for(User u:dUsers) {
 			if(!firstElement) {
-				coordinates+="|";
+				coordinates.append("|");
 			}
 			firstElement=false;
-			coordinates+=u.getLatitude()+","+u.getLongitude();
+			coordinates.append(u.getLatitude()+","+u.getLongitude());
 		}
-		try {
-			return distanceMatrix.get(coordinates);
-		} catch (GoogleApiException e) {
-			throw e;
-		}
+		
+		return distanceMatrix.get(coordinates.toString());
+		
 	}
 	
 	/********************************
@@ -272,14 +283,14 @@ public class RideRecommendationsServiceImpl implements RideRecommendationsServic
 			  .expireAfterAccess(720, TimeUnit.HOURS)
 			  .build(new CacheLoader<String, DistanceMatrix>() {
 	    @Override
-	    public DistanceMatrix load(String coordinates) throws Exception {
+	    public DistanceMatrix load(String coordinates) {
 	    	getApiKey();
 	    	if(apiKey.equals("")) {
 	    		return null;
 	    	}
-	    	String DISTANCE_MATRIX_URL = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&"
+	    	String distanceMatrixUrl = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&"
 	  			  + coordinates+"&key="+apiKey;
-	    	DistanceMatrix response = restTemplate.getForObject(DISTANCE_MATRIX_URL, DistanceMatrix.class);
+	    	DistanceMatrix response = restTemplate.getForObject(distanceMatrixUrl, DistanceMatrix.class);
 	    	if (response != null) {
 	    		return response;
 	    	} else {
@@ -294,6 +305,7 @@ public class RideRecommendationsServiceImpl implements RideRecommendationsServic
 	 * 	Uses google maps api through use of distanceMatrix.get()
 	 * 	Conversion of the two sets of lat/long into a string is to fit into the key/value pairing of the cache used by the function.
 	 * 
+	 *  @throws ExecutionException 
 	 *  @lat1 -- latitude of first coordinate
 	 *  @long1 -- longitude of first coordinate
 	 *  @lat2 -- latitude of second coordinate
@@ -306,12 +318,9 @@ public class RideRecommendationsServiceImpl implements RideRecommendationsServic
 	 * 
 	 **********************************/
 	@Override
-	public double roadKilometersBetweenPoints(double lat1, double long1, double lat2, double long2) throws Exception{
+	public double roadKilometersBetweenPoints(double lat1, double long1, double lat2, double long2) throws ExecutionException{
 		String coordinates = "origins="+lat1+","+long1+"&destinations="+lat2+","+long2;
-		try {
-		    return distanceMatrix.get(coordinates).getRows().get(0).getElements().get(0).getDistance().getValue()/1000d;
-		  } catch (GoogleApiException e) {
-		    throw e;
-		  }
+		return distanceMatrix.get(coordinates).getRows().get(0).getElements().get(0).getDistance().getValue()/1000d;
+		  
 	}
 }

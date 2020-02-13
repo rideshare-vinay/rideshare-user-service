@@ -17,11 +17,11 @@ public class DistanceMatrix {
 	@JsonProperty("rows")
 	private List<DistanceMatrixRows> rows = Collections.emptyList();
 	
-	@JsonProperty("destination_addresses")
-	private List<String> destination_addresses = Collections.emptyList();
+	@JsonProperty("destinationAddresses")
+	private List<String> destinationAddresses = Collections.emptyList();
 	
-	@JsonProperty("origin_addresses")
-	private List<String> origin_addresses = Collections.emptyList();
+	@JsonProperty("originAddresses")
+	private List<String> originAddresses = Collections.emptyList();
 	
 	@JsonProperty("status")
 	private String status;
@@ -30,12 +30,12 @@ public class DistanceMatrix {
 		
 	}
 	
-	public DistanceMatrix(List<DistanceMatrixRows> rows, List<String> destination_addresses,
-			List<String> origin_addresses, String status) {
+	public DistanceMatrix(List<DistanceMatrixRows> rows, List<String> destinationAddresses,
+			List<String> originAddresses, String status) {
 		super();
 		this.rows = rows;
-		this.destination_addresses = destination_addresses;
-		this.origin_addresses = origin_addresses;
+		this.destinationAddresses = destinationAddresses;
+		this.originAddresses = originAddresses;
 		this.status = status;
 	}
 
@@ -47,20 +47,20 @@ public class DistanceMatrix {
 		this.rows = rows;
 	}
 
-	public List<String> getDestination_addresses() {
-		return destination_addresses;
+	public List<String> getdestinationAddresses() {
+		return destinationAddresses;
 	}
 
-	public void setDestination_addresses(List<String> destination_addresses) {
-		this.destination_addresses = destination_addresses;
+	public void setdestinationAddresses(List<String> destinationAddresses) {
+		this.destinationAddresses = destinationAddresses;
 	}
 
-	public List<String> getOrigin_addresses() {
-		return origin_addresses;
+	public List<String> getoriginAddresses() {
+		return originAddresses;
 	}
 
-	public void setOrigin_addresses(List<String> origin_addresses) {
-		this.origin_addresses = origin_addresses;
+	public void setoriginAddresses(List<String> originAddresses) {
+		this.originAddresses = originAddresses;
 	}
 
 	public String getStatus() {
