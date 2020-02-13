@@ -17,7 +17,10 @@ import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;
 
+
 import io.swagger.annotations.ApiModelProperty;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * User class that represents a driver/rider. All users have an id, username, corresponding batch, first name,
@@ -30,6 +33,7 @@ import io.swagger.annotations.ApiModelProperty;
 @Component
 @Entity
 @Table(name="users")
+@JsonIgnoreProperties(value={"hibernateLazyInitializer","handler","fieldHandler"})
 public class User implements Serializable {
 	
 	private static final long serialVersionUID = 1L;

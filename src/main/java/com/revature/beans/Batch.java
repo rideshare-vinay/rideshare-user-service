@@ -10,6 +10,8 @@ import javax.validation.constraints.NotBlank;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * Batch class that represents a user's batch. All batches have a batch number and a location.
  * 
@@ -20,6 +22,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Entity
 @Table(name="batches")
+@JsonIgnoreProperties(value={"hibernateLazyInitializer","handler","fieldHandler"})
 public class Batch implements Serializable {
 	
 	private static final long serialVersionUID = 1L;

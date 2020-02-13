@@ -16,19 +16,19 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import io.swagger.annotations.ApiModel;
 
+import io.swagger.annotations.ApiModel;
 /**
  * Admin class that represents the admins. All admins have an id and a username.
  * 
  * @author Adonis Cabreja
  *
  */
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Component
 @Entity
 @Table(name="admins")
 @ApiModel()
+@JsonIgnoreProperties(value={"hibernateLazyInitializer","handler","fieldHandler"})
 public class Admin implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
