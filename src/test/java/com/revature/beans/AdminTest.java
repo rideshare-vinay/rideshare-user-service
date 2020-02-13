@@ -38,7 +38,7 @@ public class AdminTest {
 
 	@Test
 	public void testEqualsNull() {
-		admin2 = new Admin();
+		admin2 = null;
 		assertFalse(admin.equals(admin2));
 	}
 	

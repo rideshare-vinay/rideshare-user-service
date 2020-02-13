@@ -47,13 +47,25 @@ public class CarTest {
 	
 	@Test
 	public void testEqualsNull() {
-		comparedToCar = new Car();
+		comparedToCar = null;
 		assertFalse(car.equals(comparedToCar));
 	}
 	
 	@Test
 	public void testEqualsGetClass() {
 		assertFalse(car.equals(user));
+	}
+	
+	@Test
+	public void testEqualsColorNull() {
+		car.setColor(null);
+		assertFalse(car.equals(comparedToCar));
+	}
+	
+	@Test
+	public void testEqualsColorNotTheSameAsCar() {
+		car.setColor("newColor");
+		assertFalse(car.equals(comparedToCar));
 	}
 	
 	@Test
