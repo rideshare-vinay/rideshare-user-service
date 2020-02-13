@@ -1,5 +1,9 @@
 package com.revature.services.impl;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import java.util.List;
@@ -27,14 +31,39 @@ public class RideRecommendationsServiceImpl implements RideRecommendationsServic
 	
 	// maxSearchRadius is the maximum distance between riders where we will consider a recommendation.
 	private final double maxSearchRadius=20.0d;
-			 
-			
-	private String apiKey = "get your own dang key";
+	
+	private String apiKey = "";
+	
 	private RestTemplate restTemplate = new RestTemplate();
 	
 	
 	@Autowired
 	private UserService us;
+	
+	/**********************************
+	 * 
+	 *  We just read our api key from a file.
+	 *  This would be in the constructor...but with @autowired, the constructor never gets called
+	 * 
+	 */
+	public void getApiKey(){
+		if(!apiKey.equals("")) {
+			return;
+		}
+		BufferedReader br = null;
+		try {
+			br = new BufferedReader(new FileReader("/apikey.txt"));
+			apiKey=br.readLine();
+			
+		} catch (FileNotFoundException e) {
+			System.out.println("file not found");
+			apiKey="";
+		} catch (IOException e) {
+			System.out.println("io exception");
+			apiKey="";
+		}
+		System.out.println("apikey = "+apiKey);
+	}
 	
 	/***********************
 	 *  
@@ -63,43 +92,136 @@ public class RideRecommendationsServiceImpl implements RideRecommendationsServic
 		List<Double> recommendationsDistance=new ArrayList<>();
 		int currentRecommendations=0;
 		Double distance=0d;
-		Double saveDistance=0d;
+		List<User> apiUsers = new ArrayList<>();
+		List<Double> apiDist = new ArrayList<>();
+		boolean added=false;
 		for(User u:riderCandidates) {
 			distance=calculateKilometersBetweenPoints(user.getLatitude(), user.getLongitude(), u.getLatitude(), u.getLongitude());
 			if(distance<maxSearchRadius) {
 				if(distance>minSearchRadius) {
-					try {
-						saveDistance=distance;
-						distance=roadKilometersBetweenPoints(user.getLatitude(), user.getLongitude(), u.getLatitude(), u.getLongitude());
-					} catch (Exception e) {
-						//google api call failed so we just go with our previous calculation
-						distance=saveDistance;
+					apiDist.add(distance);
+					apiUsers.add(u);
+				}else {
+					if(currentRecommendations==0) {
+						recommendations.add(u);
+						recommendationsDistance.add(distance);
+						currentRecommendations++;
+					}else {
+						added=false;
+						for(int i=0; i<currentRecommendations; i++) {
+							if(distance<recommendationsDistance.get(i)) {
+								recommendations.add(i,u);
+								recommendationsDistance.add(i,distance);
+								currentRecommendations++;
+								added=true;
+								break;
+							}
+						}
+						if (!added) {
+							// we get here if the user still hasn't been added to our recommendations list yet.
+							// this happens only when the distance is larger than any user already on the list so we just add it to the end.
+							recommendations.add(u);
+							recommendationsDistance.add(distance);
+							currentRecommendations++;
+						}
+						if (currentRecommendations>numRecommendations) {
+							recommendations.remove(numRecommendations);
+							recommendationsDistance.remove(numRecommendations);
+							currentRecommendations--;
+						}
 					}
 				}
-				if(currentRecommendations==0) {
+			}
+		}
+		//at this point we have currentRecommendations / recommendaionsDistance filled with users that do not require api calls
+		//and apiUsers / apiDist are filled with the users that qualify for api calls... so lets make that api call
+		boolean apiCallSuccess=true;
+		DistanceMatrix results=null;
+		try {
+			results = multipleUserDistance(user, apiUsers);
+		} catch (Exception e) {
+			apiCallSuccess=false;
+		}
+		if(results==null || !results.getStatus().equals("OK")) {
+			apiCallSuccess=false;
+		}
+		// now lets merge those lists together
+		int apiIndex=0;
+		for (User u:apiUsers) {
+			if(currentRecommendations==0) {
+				recommendations.add(u);
+				if(!apiCallSuccess || !results.getRows().get(0).getElements().get(0).getStatus().equals("OK")) {
+					recommendationsDistance.add(apiDist.get(0));
+				}else {
+					recommendationsDistance.add(results.getRows().get(0).getElements().get(0).getDistance().getValue()/1000d);
+				}
+				currentRecommendations++;
+				apiIndex++;
+			}else {
+				if(!apiCallSuccess || !results.getRows().get(0).getElements().get(apiIndex).getStatus().equals("OK")) {
+					distance=apiDist.get(apiIndex);
+				}else {
+					distance=results.getRows().get(0).getElements().get(apiIndex).getDistance().getValue()/1000d;
+				}
+				apiIndex++;
+				
+				added=false;
+				for(int i=0; i<currentRecommendations; i++) {
+					if(distance<recommendationsDistance.get(i)) {
+						recommendations.add(i,u);
+						recommendationsDistance.add(i,distance);
+						currentRecommendations++;
+						added=true;
+						break;
+					}
+				}
+				if (!added) {
+					// we get here if the user still hasn't been added to our recommendations list yet.
+					// this happens only when the distance is larger than any user already on the list so we just add it to the end.
 					recommendations.add(u);
 					recommendationsDistance.add(distance);
 					currentRecommendations++;
-				}else {
-					for(int i=0; i<currentRecommendations; i++) {
-						if(distance<recommendationsDistance.get(i)) {
-							recommendations.add(i,u);
-							recommendationsDistance.add(i,distance);
-							currentRecommendations++;
-							break;
-						}
-					}
-					if (currentRecommendations>numRecommendations) {
-						recommendations.remove(numRecommendations);
-						recommendationsDistance.remove(numRecommendations);
-						currentRecommendations--;
-					}
+				}
+				if (currentRecommendations>numRecommendations) {
+					recommendations.remove(numRecommendations);
+					recommendationsDistance.remove(numRecommendations);
+					currentRecommendations--;
 				}
 			}
 		}
 		return recommendations;
 	}
 	
+	
+	/*********************
+	 * 
+	 * Gets DistanceMatrix object defining all the distances between user and every member of dUsers.
+	 * 
+	 * @param user -- origin for the distance calculation
+	 * @param dUsers -- multiple possible destination users for user
+	 * @return -- the whole object defining all of the distances and drive durations from user to the dUsers
+	 * @throws Exception 
+	 */
+	public DistanceMatrix multipleUserDistance(User user, List<User>dUsers) throws Exception {
+		if (dUsers.size()==0) {
+			//nothing passed in so nothing returned.
+			return null;	
+		}
+		boolean firstElement=true;
+		String coordinates = "origins="+user.getLatitude()+","+user.getLongitude()+"&destinations=";
+		for(User u:dUsers) {
+			if(!firstElement) {
+				coordinates+="|";
+			}
+			firstElement=false;
+			coordinates+=u.getLatitude()+","+u.getLongitude();
+		}
+		try {
+			return distanceMatrix.get(coordinates);
+		} catch (GoogleApiException e) {
+			throw e;
+		}
+	}
 	
 	/********************************
 	 * 
@@ -151,14 +273,18 @@ public class RideRecommendationsServiceImpl implements RideRecommendationsServic
 			  .build(new CacheLoader<String, DistanceMatrix>() {
 	    @Override
 	    public DistanceMatrix load(String coordinates) throws Exception {
-	      String DISTANCE_MATRIX_URL = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&"
+	    	getApiKey();
+	    	if(apiKey.equals("")) {
+	    		return null;
+	    	}
+	    	String DISTANCE_MATRIX_URL = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&"
 	  			  + coordinates+"&key="+apiKey;
-	      DistanceMatrix response = restTemplate.getForObject(DISTANCE_MATRIX_URL, DistanceMatrix.class);
-	      if (response != null) {
-	    	  return response;
-	      } else {
-	    	  throw new GoogleApiException("Google API Exception: Unable to find a route for coordinates: " + coordinates);
-	      }
+	    	DistanceMatrix response = restTemplate.getForObject(DISTANCE_MATRIX_URL, DistanceMatrix.class);
+	    	if (response != null) {
+	    		return response;
+	    	} else {
+	    		throw new GoogleApiException("Google API Exception: Unable to find a route for coordinates: " + coordinates);
+	    	}
 	    }
 	});
 
