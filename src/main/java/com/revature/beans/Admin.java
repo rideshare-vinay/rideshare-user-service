@@ -12,6 +12,8 @@ import javax.validation.constraints.NotBlank;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * Admin class that represents the admins. All admins have an id and a username.
  * 
@@ -22,6 +24,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Entity
 @Table(name="admins")
+@JsonIgnoreProperties(value={"hibernateLazyInitializer","handler","fieldHandler"})
 public class Admin implements Serializable {
 	
 	private static final long serialVersionUID = 1L;

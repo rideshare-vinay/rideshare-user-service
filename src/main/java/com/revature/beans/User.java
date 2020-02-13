@@ -14,6 +14,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * User class that represents a driver/rider. All users have an id, username, corresponding batch, first name,
  * last name, email, phone number, isDriver, isActive and isAcceptingRides.
@@ -25,6 +27,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Entity
 @Table(name="users")
+@JsonIgnoreProperties(value={"hibernateLazyInitializer","handler","fieldHandler"})
 public class User implements Serializable {
 	
 	private static final long serialVersionUID = 1L;

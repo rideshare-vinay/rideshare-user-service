@@ -15,6 +15,8 @@ import javax.validation.constraints.Positive;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * Car class that represents a user's car. All cars have an id, color, seats, make, model, year
  * and the corresponding user.
@@ -26,6 +28,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Entity
 @Table(name="cars")
+@JsonIgnoreProperties(value={"hibernateLazyInitializer","handler","fieldHandler"})
 public class Car implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
