@@ -9,6 +9,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;
 
@@ -27,9 +29,9 @@ public class Batch implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@NotBlank(message="Batch Number should not be blank")
-	@Min(0)
-	@Max(9999)
+	@NotNull(message="Batch Number should not be blank")
+	@Min(value=0, message="Batch should be greater than 0")
+	@Max(value=9999, message="Batch Number should be less than 9999")
 	@Column(name="batch_number")
 	private int batchNumber;
 	
