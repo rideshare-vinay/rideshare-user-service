@@ -39,11 +39,18 @@ public class BatchServiceImpl implements BatchService {
 	 * 
 	 * @param number represents the batch number.
 	 * @return A batch that matches the number.
+	 * @throws Exception 
 	 */
 	
 	@Override
-	public Batch getBatchByNumber(int number) {
-		return br.getOne(number);
+	public Batch getBatchByNumber(int number) throws Exception {
+		Batch b = new Batch();
+		b.setBatchNumber(number);
+		b = br.getOne(number);
+		if(b == null) {
+			throw new Exception("The Batch you requested to join with does not exist");
+		}
+		return b;
 	}
 
 	/**
