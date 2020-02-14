@@ -10,6 +10,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;
@@ -39,6 +40,7 @@ public class Batch implements Serializable {
 	private int batchNumber;
 	
 	@NotBlank(message="Batch Location should not be blank")
+	@Pattern(message="Batch Location does not match the standard", regexp="^[\\w ]+-\\ \\w+,\\ \\w{2,3}$")
 	@Column(name="batch_location")
 	private String batchLocation;
 	
