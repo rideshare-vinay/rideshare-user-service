@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,7 +23,6 @@ import javax.validation.constraints.Size;
 import org.springframework.stereotype.Component;
 
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * Car class that represents a user's car. All cars have an id, color, seats, make, model, year
@@ -35,7 +35,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Component
 @Entity
 @Table(name="cars")
-@JsonIgnoreProperties(value={"hibernateLazyInitializer","handler","fieldHandler"})
 public class Car implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -71,7 +70,7 @@ public class Car implements Serializable {
 	@ApiModelProperty(value="Car year that must be after 1970")
 	private int year;
 	
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="user_id", unique=true)
 	@NotNull(message="Car must have associated driver")
 	@ApiModelProperty(value="Driver of the car")
