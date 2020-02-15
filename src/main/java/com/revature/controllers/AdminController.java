@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +23,7 @@ import com.revature.services.AdminService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 /**
  * AdminController takes care of handling our requests to /admins.
@@ -39,7 +41,7 @@ import io.swagger.annotations.ApiOperation;
 public class AdminController {
 	
 	@Autowired
-	private AdminService as;
+	private AdminService adminService;
 	
 	/**
 	 * HTTP GET method (/users)
@@ -51,7 +53,7 @@ public class AdminController {
 	@GetMapping
 	public List<Admin> getAdmins() {
 		
-		return as.getAdmins();
+		return adminService.getAdmins();
 	}
 	
 	/**
@@ -61,11 +63,11 @@ public class AdminController {
 	 * @return An admin that matches the id.
 	 */
 	
-	@ApiOperation(value="Returns admin by id", tags= {"Admin"})
+	@ApiOperation(value="Returns admin by id")
 	@GetMapping("/{id}")
-	public Admin getAdminById(@PathVariable("id")int id) {
-		
-		return as.getAdminById(id);
+	public Admin getAdminById(@ApiParam(value="Admin Id") @PathVariable("id")int id) {
+		Admin admin = adminService.getAdminById(id);
+		return admin;
 	}
 	
 	/**
@@ -79,7 +81,7 @@ public class AdminController {
 	@PostMapping
 	public ResponseEntity<Admin> createAdmin(@Valid @RequestBody Admin admin) {
 		
-		return new ResponseEntity<>(as.createAdmin(admin), HttpStatus.CREATED);
+		return new ResponseEntity<>(adminService.createAdmin(admin), HttpStatus.CREATED);
 	}
 	
 	/**
@@ -92,8 +94,7 @@ public class AdminController {
 	@ApiOperation(value="Updates admin by id", tags= {"Admin"})
 	@PutMapping("/{id}")
 	public Admin updateAdmin(@Valid @RequestBody Admin admin) {
-		
-		return as.updateAdmin(admin);
+		return adminService.updateAdmin(admin);
 	}
 	
 	/**
@@ -107,6 +108,6 @@ public class AdminController {
 	@DeleteMapping("/{id}")
 	public String deleteAdmin(@PathVariable("id")int id) {
 		
-		return as.deleteAdminById(id);
+		return adminService.deleteAdminById(id);
 	}
 }
