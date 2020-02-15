@@ -131,6 +131,7 @@ public class Driver {
 				user1.setActive(true);
 				user1.setAcceptingRides(true);
 				user1.setBatch(b);
+				user1.setAddress("101 W 6th St");
 				userService.addUser(user1);
 				
 				User user2 = new User();
@@ -144,6 +145,7 @@ public class Driver {
 				user2.setActive(true);
 				user2.setAcceptingRides(true);
 				user2.setBatch(b);
+				user2.setAddress("603 E Mitchell St");
 				userService.addUser(user2);
 				
 				User user3 = new User();
@@ -157,6 +159,7 @@ public class Driver {
 				user3.setActive(true);
 				user3.setAcceptingRides(true);
 				user3.setBatch(b);
+				user3.setAddress("705 S Center St");
 				userService.addUser(user3);
 				
 				User user4 = new User();
@@ -170,6 +173,7 @@ public class Driver {
 				user4.setActive(true);
 				user4.setAcceptingRides(true);
 				user4.setBatch(b);
+				user4.setAddress("109 Oram St");
 				userService.addUser(user4);
 				
 				// rider	
@@ -184,6 +188,7 @@ public class Driver {
 				user5.setActive(true);
 				user5.setAcceptingRides(false);
 				user5.setBatch(b);
+				user5.setAddress("1402 S Pecan St");
 				userService.addUser(user5);
 				
 				User user6 = new User();
@@ -197,6 +202,7 @@ public class Driver {
 				user6.setActive(true);
 				user6.setAcceptingRides(false);
 				user6.setBatch(b);
+				user6.setAddress("505 Senior Creek Dr");
 				userService.addUser(user6);
 				
 				User user7 = new User();
@@ -210,6 +216,7 @@ public class Driver {
 				user7.setActive(true);
 				user7.setAcceptingRides(false);
 				user7.setBatch(b);
+				user7.setAddress("800 Senior Creek Dr");
 				userService.addUser(user7);
 				
 				User user8 = new User();
@@ -223,8 +230,10 @@ public class Driver {
 				user8.setActive(true);
 				user8.setAcceptingRides(false);
 				user8.setBatch(b);
+				user8.setAddress("724 W Mitchell St");
 				userService.addUser(user8);
 				
+				// Cars
 				Car c1 = new Car();
 				c1.setCarId(1);
 				c1.setColor("blue");
