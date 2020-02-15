@@ -66,7 +66,6 @@ public class BatchController {
 	 * 
 	 * @param number represents the batch number.
 	 * @return A batch that matches the number.
-	 * @throws Exception 
 	 */
 	
 	@ApiOperation(value="Returns batch by number", tags= {"Batch"})
