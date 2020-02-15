@@ -71,7 +71,7 @@ public class BatchController {
 	
 	@ApiOperation(value="Returns batch by number", tags= {"Batch"})
 	@GetMapping("/{number}")
-	public Batch getBatchByNumber(@PathVariable("number")int number) throws Exception {
+	public Batch getBatchByNumber(@PathVariable("number")int number) {
 		
 		return bs.getBatchByNumber(number);
 	}
