@@ -40,7 +40,7 @@ public class Batch implements Serializable {
 	private int batchNumber;
 	
 	@NotBlank(message="Batch Location should not be blank")
-	@Pattern(message="Batch Location does not match the standard", regexp="^[\\w ]+-\\ \\w+,\\ \\w{2,3}$")
+	@Pattern(message="Batch Location does not match the standard", regexp="^[\\w ]+-\\ [\\w ]+,\\ \\w{2,3}$")
 	@Column(name="batch_location")
 	private String batchLocation;
 	

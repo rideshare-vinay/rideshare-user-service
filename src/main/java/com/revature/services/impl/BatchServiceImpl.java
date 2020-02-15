@@ -43,14 +43,20 @@ public class BatchServiceImpl implements BatchService {
 	 */
 	
 	@Override
-	public Batch getBatchByNumber(int number) throws Exception {
-		Batch b = new Batch();
-		b.setBatchNumber(number);
-		b = br.getOne(number);
-		if(b == null) {
-			throw new Exception("The Batch you requested to join with does not exist");
+	public Batch getBatchByNumber(int number) {
+		return br.getOne(number);
+	}
+	
+	@Override
+	public boolean isBatchSaved(Batch batch) throws Exception {
+		Batch batchCompare = br.getOne(batch.getBatchNumber());
+		if(batchCompare == null) {
+			return false;
+		}else if(batchCompare == batch) {
+			return true;
 		}
-		return b;
+		
+		throw new Exception("Batch mismatch");
 	}
 
 	/**
