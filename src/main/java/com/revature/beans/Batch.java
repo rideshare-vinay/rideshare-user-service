@@ -6,9 +6,16 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * Batch class that represents a user's batch. All batches have a batch number and a location.
@@ -20,15 +27,20 @@ import org.springframework.stereotype.Component;
 @Component
 @Entity
 @Table(name="batches")
+@JsonIgnoreProperties(value={"hibernateLazyInitializer","handler","fieldHandler"})
 public class Batch implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
+	@NotNull(message="Batch Number should not be blank")
+	@Min(value=0, message="Batch should be greater than 0")
+	@Max(value=9999, message="Batch Number should be less than 9999")
 	@Column(name="batch_number")
 	private int batchNumber;
 	
-	@NotBlank
+	@NotBlank(message="Batch Location should not be blank")
+	@Pattern(message="Batch Location does not match the standard", regexp="^[\\w ]+-\\ \\w+,\\ \\w{2,3}$")
 	@Column(name="batch_location")
 	private String batchLocation;
 	
