@@ -71,7 +71,7 @@ public class Driver {
 			.build()
 			.apiInfo(apiInfo());
 	}
-	@Bean
+	//@Bean
 	public CommandLineRunner demoData(BatchService batchService,UserService userService, CarService carService,AdminService adminService) 
 		 {
 			return args -> {
@@ -88,11 +88,12 @@ public class Driver {
 				// user driver
 				User user1 = new User();
 				user1.setUserId(1);
-				user1.setUserName("driver1");
+				user1.setUserName("drivera");
 				user1.setFirstName("Adney");
-				user1.setLastName("Jones1");
+				user1.setLastName("Jones");
 				user1.setEmail("revatureD1@gmail.com");
 				user1.setPhoneNumber("7131019999");
+				user1.setAddress("123 Main St");
 				user1.setDriver(true);
 				user1.setActive(true);
 				user1.setAcceptingRides(true);
@@ -101,11 +102,12 @@ public class Driver {
 				
 				User user2 = new User();
 				user2.setUserId(2);
-				user2.setUserName("driver2");
+				user2.setUserName("driverb");
 				user2.setFirstName("Archibald");
-				user2.setLastName("Wilson2");
+				user2.setLastName("Wilson");
 				user2.setEmail("revatureD2@gmail.com");
 				user2.setPhoneNumber("7132029999");
+				user2.setAddress("456 Alder Dr");
 				user2.setDriver(true);
 				user2.setActive(true);
 				user2.setAcceptingRides(true);
@@ -114,11 +116,12 @@ public class Driver {
 				
 				User user3 = new User();
 				user3.setUserId(3);
-				user3.setUserName("driver3");
+				user3.setUserName("driverc");
 				user3.setFirstName("Balder");
-				user3.setLastName("Miller3");
+				user3.setLastName("Miller");
 				user3.setEmail("revatureD3@gmail.com");
 				user3.setPhoneNumber("7133039999");
+				user3.setAddress("9169 Middle Dr");
 				user3.setDriver(true);
 				user3.setActive(true);
 				user3.setAcceptingRides(true);
@@ -127,11 +130,12 @@ public class Driver {
 				
 				User user4 = new User();
 				user4.setUserId(4);
-				user4.setUserName("driver4");
+				user4.setUserName("driverd");
 				user4.setFirstName("Cabal");
-				user4.setLastName("Davis4");
+				user4.setLastName("Davis");
 				user4.setEmail("revatureD4@gmail.com");
 				user4.setPhoneNumber("7134049999");
+				user4.setAddress("2012 Kroger St");
 				user4.setDriver(true);
 				user4.setActive(true);
 				user4.setAcceptingRides(true);
@@ -141,11 +145,12 @@ public class Driver {
 				// rider	
 				User user5 = new User();
 				user5.setUserId(5);
-				user5.setUserName("rider1");
+				user5.setUserName("ridera");
 				user5.setFirstName("Evelyn");
-				user5.setLastName("Brown1");
+				user5.setLastName("Brown");
 				user5.setEmail("revatureR1@gmail.com");
-				user5.setPhoneNumber("71350529999");
+				user5.setPhoneNumber("7135029999");
+				user5.setAddress("9087 Jibber Ave");
 				user5.setDriver(false);
 				user5.setActive(true);
 				user5.setAcceptingRides(false);
@@ -154,11 +159,12 @@ public class Driver {
 				
 				User user6 = new User();
 				user6.setUserId(6);
-				user6.setUserName("rider2");
+				user6.setUserName("riderb");
 				user6.setFirstName("Galen");
-				user6.setLastName("William2");
+				user6.setLastName("William");
 				user6.setEmail("revatureR2@gmail.com");
 				user6.setPhoneNumber("7136069999");
+				user6.setAddress("673 Hilbert St");
 				user6.setDriver(false);
 				user6.setActive(true);
 				user6.setAcceptingRides(false);
@@ -167,11 +173,12 @@ public class Driver {
 				
 				User user7 = new User();
 				user7.setUserId(7);
-				user7.setUserName("rider3");
+				user7.setUserName("riderc");
 				user7.setFirstName("Amarie");
-				user7.setLastName("Johnson3");
+				user7.setLastName("Johnson");
 				user7.setEmail("revatureR3@gmail.com");
 				user7.setPhoneNumber("7137079999");
+				user7.setAddress("4589 Lober Ln");
 				user7.setDriver(false);
 				user7.setActive(true);
 				user7.setAcceptingRides(false);
@@ -180,11 +187,12 @@ public class Driver {
 				
 				User user8 = new User();
 				user8.setUserId(8);
-				user8.setUserName("rider4");
+				user8.setUserName("ridere");
 				user8.setFirstName("Birdee");
-				user8.setLastName("Smith4");
+				user8.setLastName("Smith");
 				user8.setEmail("revatureR4@gmail.com");
 				user8.setPhoneNumber("7138089999");
+				user8.setAddress("102 George Dr");
 				user8.setDriver(false);
 				user8.setActive(true);
 				user8.setAcceptingRides(false);
