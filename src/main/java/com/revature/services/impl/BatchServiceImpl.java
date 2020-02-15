@@ -39,11 +39,26 @@ public class BatchServiceImpl implements BatchService {
 	 * 
 	 * @param number represents the batch number.
 	 * @return A batch that matches the number.
+	 * @throws Exception 
 	 */
 	
 	@Override
 	public Batch getBatchByNumber(int number) {
+		
 		return br.getOne(number);
+		
+	}
+	
+	@Override
+	public boolean isBatchSaved(Batch batch) throws Exception {
+		Batch batchCompare = br.getOne(batch.getBatchNumber());
+		if(batchCompare == null) {
+			return false;
+		}else if(batchCompare == batch) {
+			return true;
+		}
+		
+		throw new Exception("Batch mismatch");
 	}
 
 	/**

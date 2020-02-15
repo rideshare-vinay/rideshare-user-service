@@ -75,9 +75,43 @@ public class Driver {
 	public CommandLineRunner demoData(BatchService batchService,UserService userService, CarService carService,AdminService adminService) 
 		 {
 			return args -> {
+				/*
+				 * {batchNumber: 1, batchLocation: 'VWU - Morgantown, WV'},
+				 * {batchNumber: 2, batchLocation: 'UTA - Arlington, TX'},
+				 * {batchNumber: 3, batchLocation: 'USF - Tampa, FL'},
+				 * {batchNumber: 4, batchLocation: 'Revature HQ - Reston, VA'},
+				 * {batchNumber: 5, batchLocation: 'CUNY SPS - New York, NY'},
+				 * {batchNumber: 6, batchLocation: 'CUNY Queens College - Flushing, NY'}
+				 * */
 				Batch b=new Batch();
+				System.out.println("UTA - Arlington, TX");
 				b.setBatchLocation("UTA - Arlington, TX");
 				b.setBatchNumber(4);
+				batchService.addBatch(b);
+				
+				System.out.println("VWU - Morgantown, WV");
+				b.setBatchLocation("VWU - Morgantown, WV");
+				b.setBatchNumber(1);
+				batchService.addBatch(b);
+				
+				System.out.println("USF - Tampa, FL");
+				b.setBatchLocation("USF - Tampa, FL");
+				b.setBatchNumber(3);
+				batchService.addBatch(b);
+				
+				System.out.println("Revature HQ - Reston, VA");
+				b.setBatchLocation("Revature HQ - Reston, VA");
+				b.setBatchNumber(5);
+				batchService.addBatch(b);
+				
+				System.out.println("CUNY SPS - New York, NY");
+				b.setBatchLocation("CUNY SPS - New York, NY");
+				b.setBatchNumber(6);
+				batchService.addBatch(b);
+				
+				System.out.println("CUNY Queens College - Flushing, NY");
+				b.setBatchLocation("CUNY Queens College - Flushing, NY");
+				b.setBatchNumber(2);
 				batchService.addBatch(b);
 				
 				Admin admin = new  Admin();
