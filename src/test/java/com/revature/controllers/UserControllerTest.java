@@ -113,8 +113,8 @@ public class UserControllerTest {
 	@Test
 	public void testAddingUser() throws Exception {
 		
-		Batch batch = new Batch(111, "address");
-		User user = new User(1, "userName", batch, "adonis", "cabreja", "adonis@gmail.com", "123-456-789", "1001 South Center Street, Arlington, TX, USA", 32.7271963, -97.1059225);
+		Batch batch = new Batch(111, "UTA - Arlington, TX");
+		User user = new User(1, "userName", batch, "Adonis", "Cabreja", "adonis@gmail.com", "1231231234", "1001 South Center Street, Arlington, TX, USA", 32.7271963, -97.1059225);
 		user.setDriver(true);
 		user.setActive(true);
 		user.setAcceptingRides(true);
@@ -130,7 +130,7 @@ public class UserControllerTest {
 	public void testUpdatingUser() throws Exception {
 		
 		Batch batch = new Batch(111, "address");
-		User user = new User(1, "userName", batch, "adonis", "cabreja", "adonis@gmail.com", "123-456-789", "1001 South Center Street, Arlington, TX, USA", 32.7271963, -97.1059225);
+		User user = new User(1, "userName", batch, "adonis", "cabreja", "adonis@gmail.com", "123-456-7890", "1001 South Center Street, Arlington, TX, USA", 32.7271963, -97.1059225);
 		
 		when(us.updateUser(user)).thenReturn(user);
 		
