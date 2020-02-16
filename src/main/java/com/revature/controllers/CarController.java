@@ -77,8 +77,7 @@ public class CarController {
 	
 	@ApiOperation(value="Returns car by user id", tags= {"Car"})
 	@GetMapping("/users/{userId}")
-	public Car getCarByUserId(@PathVariable("userId")int userId) {
-		
+	public Car getCarByUserId(@PathVariable("userId")int userId) {		
 		return cs.getCarByUserId(userId);
 	}
 	
@@ -91,8 +90,7 @@ public class CarController {
 	
 	@ApiOperation(value="Adds a new car", tags= {"Car"})
 	@PostMapping
-	public ResponseEntity<Car> addCar(@Valid @RequestBody Car car) {
-		
+	public ResponseEntity<Car> addCar(@Valid @RequestBody Car car) {		
 		return new ResponseEntity<>(cs.addCar(car), HttpStatus.CREATED);
 	}
 	
@@ -105,8 +103,7 @@ public class CarController {
 	
 	@ApiOperation(value="Updates car by id", tags= {"Car"})
 	@PutMapping("/{id}")
-	public Car updateCar(@Valid @RequestBody Car car) {
-		
+	public Car updateCar(@Valid @RequestBody Car car) {		
 		return cs.updateCar(car);
 	}
 	

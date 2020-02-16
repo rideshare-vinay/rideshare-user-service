@@ -77,9 +77,8 @@ public class BatchControllerTest {
 	
 	@Test
 	public void testAddingBatch() throws Exception {
-		
-		Batch batch = new Batch(123, "location");
-		when(bs.addBatch(new Batch(123, "location"))).thenReturn(batch);
+		Batch batch = new Batch(1912, "UTA - Arlington, TX");
+		when(bs.addBatch(new Batch(1912, "UTA - Arlington, TX"))).thenReturn(batch);
 		
 		mvc.perform(post("/batches").contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsString(batch)))
 		   .andExpect(status().isCreated())
@@ -88,9 +87,8 @@ public class BatchControllerTest {
 	
 	@Test
 	public void testUpdatingBatch() throws Exception {
-		
-		Batch batch = new Batch(123, "location");
-		when(bs.updateBatch(new Batch(123, "location"))).thenReturn(batch);
+		Batch batch = new Batch(1912, "UTA - Arlington, TX");
+		when(bs.updateBatch(new Batch(1912, "UTA - Arlington, TX"))).thenReturn(batch);
 		
 		mvc.perform(put("/batches/{id}", 123).contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsString(batch)))
 		   .andExpect(status().isOk())
@@ -100,7 +98,7 @@ public class BatchControllerTest {
 	@Test
 	public void testDeletingBatch() throws Exception {
 		
-		Batch batch = new Batch(123, "location");
+		Batch batch = new Batch(123, "UTA - Arlington, TX");
 		String returnedStr = "Batch number: " + batch.getBatchNumber() + " was deleted.";
 		when(bs.deleteBatchByNumber(123)).thenReturn(returnedStr);
 		
