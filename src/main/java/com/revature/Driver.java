@@ -71,7 +71,7 @@ public class Driver {
 			.build()
 			.apiInfo(apiInfo());
 	}
-	@Bean
+//	@Bean
 	public CommandLineRunner demoData(BatchService batchService,UserService userService, CarService carService,AdminService adminService) 
 		 {
 			return args -> {
