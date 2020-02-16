@@ -1,6 +1,7 @@
 package com.revature.services.impl;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -90,5 +91,19 @@ public class BatchServiceImplTest {
 		String actual = bsi.deleteBatchByNumber(123);
 		
 		assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void testIsBatchedSaved() {
+		
+		Batch b = new Batch(123, "location");
+		when(br.getOne(b.getBatchNumber())).thenReturn(b);
+		
+		try {
+			assertTrue(bsi.isBatchSaved(b));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
