@@ -40,7 +40,13 @@ public class BatchServiceImplTest {
 		
 		Batch expected = new Batch(123, "location");
 		when(br.getOne(123)).thenReturn(expected);
-		Batch actual = bsi.getBatchByNumber(123);
+		Batch actual = null;
+		try {
+			actual = bsi.getBatchByNumber(123);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		assertEquals(expected, actual);
 	}
