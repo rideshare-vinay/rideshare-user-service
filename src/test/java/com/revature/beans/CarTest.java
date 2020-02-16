@@ -15,7 +15,7 @@ public class CarTest {
 	@Before
 	public void setDemo() {
 		batch = new Batch(123, "location");
-		user = new User(1, "userName", batch, "adonis", "cabreja", "adonis@gmail.com", "123-456-7890");
+		user = new User(1, "userName", batch, "John", "Smith", "email@email.com", "1231231234", "123 Main St", 1.0, 1.0);
 		car = new Car(1, "white", 5, "Jeep", "Compass", 2019, user);
 		comparedToCar = new Car(1, "white", 5, "Jeep", "Compass", 2019, user);
 	}
@@ -106,7 +106,7 @@ public class CarTest {
 	
 	@Test
 	public void testEqualsUserNotTheSameAsCar() {
-		User otherUser = new User(2, "otherUserName", batch, "adonis", "cabreja", "adonis@gmail.com", "123-456-7890");
+		User otherUser = new User(2, "userName", batch, "John", "Smith", "email@email.com", "1231231234", "123 Main St", 1.0, 1.0);
 		car.setUser(otherUser);
 		car.setYear(2019);
 		assertFalse(car.equals(comparedToCar));
