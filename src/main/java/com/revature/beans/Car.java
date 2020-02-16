@@ -1,21 +1,28 @@
 package com.revature.beans;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * Car class that represents a user's car. All cars have an id, color, seats, make, model, year
@@ -28,7 +35,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Component
 @Entity
 @Table(name="cars")
-@JsonIgnoreProperties(value={"hibernateLazyInitializer","handler","fieldHandler"})
 public class Car implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -37,23 +43,37 @@ public class Car implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="car_id")
 	private int carId;
+	
+	@NotBlank(message="Car must have color")
+	@Size(min = 2, max = 20, message="Color must be between 2 to 20 characters")
+	@Pattern(regexp="[a-zA-Z\\s\\-]+", message="Color can only have letters and/or hyphens")
+	@ApiModelProperty(allowableValues="range[2,20]", value="Color containing 1-20 letters, hyphens and spaces")
 	private String color;
 	
-	@Positive
+	@Min(value=1, message="Car cant have fewer than one seat")
+	@Max(value=6, message="Car cant have more than six seats")
+	@ApiModelProperty(allowableValues="range[1,6]", value="Available seats in a car")
 	private int seats;
 	
-	@NotBlank
+	@NotBlank(message="Car must have make")
+	@Pattern(regexp="[0-9a-zA-Z\\s\\-]+", message="Make can only have letters, numbers and/or hyphens")
+	@ApiModelProperty(value="Car make containing letters, hyphens and spaces")
 	private String make;
 	
-	@NotBlank
+	@NotBlank(message="Car must have model")
+	@Pattern(regexp="[0-9a-zA-Z\\s\\-]+", message="Model can only have letters, numbers and/or hyphens")
+	@ApiModelProperty(value="Car model containing letters, hyphens and spaces")
 	private String model;
 	
-	@Positive
 	@Column(name="car_year")
+	@Min(value=1970, message="Car must be from 1970 or later")
+	@ApiModelProperty(value="Car year that must be after 1970")
 	private int year;
 	
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="user_id", unique=true)
+	@NotNull(message="Car must have associated driver")
+	@ApiModelProperty(value="Driver of the car")
 	private User user;
 	
 	public Car() {

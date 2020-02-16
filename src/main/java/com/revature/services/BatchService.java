@@ -12,4 +12,5 @@ public interface BatchService {
 	public Batch addBatch(Batch batch);
 	public Batch updateBatch(Batch batch);
 	public String deleteBatchByNumber(int number);
+	boolean isBatchSaved(Batch batch) throws Exception;
 }

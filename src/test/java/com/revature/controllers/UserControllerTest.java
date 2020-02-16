@@ -55,7 +55,7 @@ public class UserControllerTest {
 	@Test
 	public void testGettingUserById() throws Exception {
 		
-		User user = new User(1, "userName", new Batch(), "adonis", "cabreja", "adonis@gmail.com", "123-456-789");
+		User user = new User(1, "userName", new Batch(), "adonis", "cabreja", "adonis@gmail.com", "123-456-789", "1001 South Center Street, Arlington, TX, USA", 32.7271963, -97.1059225);
 		user.setDriver(true);
 		user.setActive(true);
 		user.setAcceptingRides(true);
@@ -70,7 +70,7 @@ public class UserControllerTest {
 	public void testGettingUserByUsername() throws Exception {
 		
 		List<User> users = new ArrayList<>();
-		users.add(new User(1, "userName", new Batch(), "adonis", "cabreja", "adonis@gmail.com", "123-456-789"));
+		users.add(new User(1, "userName", new Batch(), "adonis", "cabreja", "adonis@gmail.com", "123-456-789", "1001 South Center Street, Arlington, TX, USA", 32.7271963, -97.1059225));
 		when(us.getUserByUsername("userName")).thenReturn(users);
 		
 		mvc.perform(get("/users?username=userName"))
@@ -82,7 +82,7 @@ public class UserControllerTest {
 	public void testGettingUserByRole() throws Exception {
 		
 		List<User> users = new ArrayList<>();
-		User user = new User(1, "userName", new Batch(), "adonis", "cabreja", "adonis@gmail.com", "123-456-789");
+		User user = new User(1, "userName", new Batch(), "adonis", "cabreja", "adonis@gmail.com", "123-456-789", "1001 South Center Street, Arlington, TX, USA", 32.7271963, -97.1059225);
 		user.setDriver(true);
 		user.setActive(true);
 		user.setAcceptingRides(true);
@@ -98,7 +98,7 @@ public class UserControllerTest {
 	public void testGettingUserByRoleAndLocation() throws Exception {
 		
 		List<User> users = new ArrayList<>();
-		User user = new User(1, "userName", new Batch(), "adonis", "cabreja", "adonis@gmail.com", "123-456-789");
+		User user = new User(1, "userName", new Batch(), "adonis", "cabreja", "adonis@gmail.com", "123-456-789", "1001 South Center Street, Arlington, TX, USA", 32.7271963, -97.1059225);
 		user.setDriver(true);
 		user.setActive(true);
 		user.setAcceptingRides(true);
@@ -114,7 +114,7 @@ public class UserControllerTest {
 	public void testAddingUser() throws Exception {
 		
 		Batch batch = new Batch(111, "address");
-		User user = new User(1, "userName", batch, "adonis", "cabreja", "adonis@gmail.com", "123-456-789");
+		User user = new User(1, "userName", batch, "adonis", "cabreja", "adonis@gmail.com", "123-456-789", "1001 South Center Street, Arlington, TX, USA", 32.7271963, -97.1059225);
 		user.setDriver(true);
 		user.setActive(true);
 		user.setAcceptingRides(true);
@@ -130,7 +130,7 @@ public class UserControllerTest {
 	public void testUpdatingUser() throws Exception {
 		
 		Batch batch = new Batch(111, "address");
-		User user = new User(1, "userName", batch, "adonis", "cabreja", "adonis@gmail.com", "123-456-789");
+		User user = new User(1, "userName", batch, "adonis", "cabreja", "adonis@gmail.com", "123-456-789", "1001 South Center Street, Arlington, TX, USA", 32.7271963, -97.1059225);
 		
 		when(us.updateUser(user)).thenReturn(user);
 		
@@ -142,7 +142,7 @@ public class UserControllerTest {
 	@Test
 	public void testDeletingUser() throws Exception {
 		
-		User user = new User(1, "userName", new Batch(), "adonis", "cabreja", "adonis@gmail.com", "123-456-789");
+		User user = new User(1, "userName", new Batch(), "adonis", "cabreja", "adonis@gmail.com", "123-456-789", "1001 South Center Street, Arlington, TX, USA", 32.7271963, -97.1059225);
 		String returnedStr = "User with id: " + user.getUserId() + " was deleted.";
 		when(us.deleteUserById(1)).thenReturn(returnedStr);
 		

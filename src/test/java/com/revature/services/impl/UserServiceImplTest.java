@@ -39,7 +39,7 @@ public class UserServiceImplTest {
 	@Test
 	public void testGettingUserById() {
 		
-		User expected = new User(1, "userName", new Batch(), "adonis", "cabreja", "adonis@gmail.com", "123-456-789");
+		User expected = new User(1, "userName", new Batch(), "adonis", "cabreja", "adonis@gmail.com", "123-456-789", "1001 South Center Street, Arlington, TX, USA", 32.7271963, -97.1059225);
 		when(ur.getOne(1)).thenReturn(expected);
 		User actual = usi.getUserById(1);
 		
@@ -50,7 +50,7 @@ public class UserServiceImplTest {
 	public void testGettingUserByUsername() {
 		
 		List<User> expected = new ArrayList<>();
-		expected.add(new User(1, "userName", new Batch(), "adonis", "cabreja", "adonis@gmail.com", "123-456-789"));
+		expected.add(new User(1, "userName", new Batch(), "adonis", "cabreja", "adonis@gmail.com", "123-456-789", "1001 South Center Street, Arlington, TX, USA", 32.7271963, -97.1059225));
 		when(ur.getUserByUsername("userName")).thenReturn(expected);
 		List<User> actual = usi.getUserByUsername("userName");
 		
@@ -61,7 +61,7 @@ public class UserServiceImplTest {
 	public void testGettingUserByRole() {
 		
 		List<User> expected = new ArrayList<>();
-		expected.add(new User(1, "userName", new Batch(), "adonis", "cabreja", "adonis@gmail.com", "123-456-789"));
+		expected.add(new User(1, "userName", new Batch(), "adonis", "cabreja", "adonis@gmail.com", "123-456-789", "1001 South Center Street, Arlington, TX, USA", 32.7271963, -97.1059225));
 		when(ur.getUserByRole(true)).thenReturn(expected);
 		List<User> actual = usi.getUserByRole(true);
 		
@@ -72,7 +72,7 @@ public class UserServiceImplTest {
 	public void testGettingUserByRoleAndLocation() {
 		
 		List<User> expected = new ArrayList<>();
-		expected.add(new User(1, "userName", new Batch(), "adonis", "cabreja", "adonis@gmail.com", "123-456-789"));
+		expected.add(new User(1, "userName", new Batch(), "adonis", "cabreja", "adonis@gmail.com", "123-456-789", "1001 South Center Street, Arlington, TX, USA", 32.7271963, -97.1059225));
 		when(ur.getUserByRoleAndLocation(true, "location")).thenReturn(expected);
 		List<User> actual = usi.getUserByRoleAndLocation(true, "location");
 		
@@ -82,7 +82,7 @@ public class UserServiceImplTest {
 	@Test
 	public void testAddingUser() {
 		
-		User expected = new User(1, "userName", new Batch(), "adonis", "cabreja", "adonis@gmail.com", "123-456-789");
+		User expected = new User(1, "userName", new Batch(), "adonis", "cabreja", "adonis@gmail.com", "123-456-789", "1001 South Center Street, Arlington, TX, USA", 32.7271963, -97.1059225);
 		when(ur.save(expected)).thenReturn(expected);
 		User actual = usi.addUser(expected);
 		
@@ -92,7 +92,7 @@ public class UserServiceImplTest {
 	@Test
 	public void testUpdatingUser() {
 		
-		User expected = new User(1, "userName", new Batch(), "adonis", "cabreja", "adonis@gmail.com", "123-456-789");
+		User expected = new User(1, "userName", new Batch(), "adonis", "cabreja", "adonis@gmail.com", "123-456-789", "1001 South Center Street, Arlington, TX, USA", 32.7271963, -97.1059225);
 		when(ur.save(expected)).thenReturn(expected);
 		User actual = usi.updateUser(expected);
 		
