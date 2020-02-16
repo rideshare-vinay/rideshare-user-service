@@ -7,9 +7,10 @@ import com.revature.beans.Batch;
 public interface BatchService {
 	
 	public List<Batch> getBatches();
-	public Batch getBatchByNumber(int number) throws Exception;
+	public Batch getBatchByNumber(int number);
 	public List<Batch> getBatchByLocation(String location);
 	public Batch addBatch(Batch batch);
 	public Batch updateBatch(Batch batch);
 	public String deleteBatchByNumber(int number);
+	boolean isBatchSaved(Batch batch) throws Exception;
 }
