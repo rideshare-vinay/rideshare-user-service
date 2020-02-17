@@ -68,20 +68,20 @@ public class Driver {
 				.apis(RequestHandlerSelectors.basePackage("com.revature")).build().apiInfo(apiInfo());
 	}
 
-//	@Bean
-//	public CommandLineRunner demoData(BatchService batchService, UserService userService, CarService carService,
-//			AdminService adminService) {
-//		return args -> {
-//			Batch b = new Batch();
-//			b.setBatchLocation("UTA - Arlington, TX");
-//			b.setBatchNumber(4);
-//			batchService.addBatch(b);
-//
-//			Admin admin = new Admin();
-//			admin.setAdminId(1);
-//			admin.setUserName("admin");
-//			adminService.createAdmin(admin);
-//
+	@Bean
+	public CommandLineRunner demoData(BatchService batchService, UserService userService, CarService carService,
+			AdminService adminService) {
+		return args -> {
+			Batch b = new Batch();
+			b.setBatchLocation("UTA - Arlington, TX");
+			b.setBatchNumber(4);
+			batchService.addBatch(b);
+
+			Admin admin = new Admin();
+			admin.setAdminId(1);
+			admin.setUserName("admin");
+			adminService.createAdmin(admin);
+
 //			// user driver
 //			User user1 = new User();
 //			user1.setUserId(1);
@@ -227,7 +227,7 @@ public class Driver {
 //			c4.setUser(user4);
 //			c4.setYear(2018);
 //			carService.addCar(c4);
-//		};
-//	}
+		};
+	}
 	
 }
