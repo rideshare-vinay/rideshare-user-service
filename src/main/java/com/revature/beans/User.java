@@ -23,8 +23,6 @@ import org.springframework.stereotype.Component;
 
 import io.swagger.annotations.ApiModelProperty;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 /**
  * User class that represents a driver/rider. All users have an id, username,
  * corresponding batch, first name, last name, email, phone number, isDriver,

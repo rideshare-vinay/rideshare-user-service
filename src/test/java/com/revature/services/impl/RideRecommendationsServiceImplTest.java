@@ -1,15 +1,10 @@
 package com.revature.services.impl;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,7 +12,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.google.common.cache.CacheLoader;
 import com.revature.beans.Batch;
 import com.revature.beans.User;
 
@@ -81,15 +75,13 @@ public class RideRecommendationsServiceImplTest {
 		double lat2 = 32.736050;
 		double long2 = -97.113750;
 		
-		double distance = 1.609344;
-		
 		double calculatedDistance = 0.0;
 		try {
 			calculatedDistance = rideService.roadKilometersBetweenPoints(lat1, long1, lat2, long2);
 		} catch (Exception e) {
 			
 		}
-		assertEquals(calculatedDistance, 0.0, 1);
+		assertEquals(calculatedDistance, 2.535, 1);
 	}
 	
 	@Test

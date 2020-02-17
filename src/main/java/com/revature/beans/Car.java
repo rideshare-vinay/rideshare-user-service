@@ -1,7 +1,6 @@
 package com.revature.beans;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,7 +16,6 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;

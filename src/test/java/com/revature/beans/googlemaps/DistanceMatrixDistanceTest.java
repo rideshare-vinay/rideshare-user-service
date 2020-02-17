@@ -2,8 +2,6 @@ package com.revature.beans.googlemaps;
 
 import static org.junit.Assert.*;
 
-import java.util.Collections;
-
 import org.junit.Test;
 
 public class DistanceMatrixDistanceTest {
