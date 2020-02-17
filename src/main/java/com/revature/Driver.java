@@ -130,7 +130,7 @@ public class Driver {
 				user1.setBatch(b);
 				user1.setAddress("2201 E Road to Six Flags St, Arlington, TX 76010");
 				user1.setLatitude(32.755562);
-				user1.setLatitude(-97.072769);
+				user1.setLongitude(-97.072769);
 				userService.addUser(user1);
 				
 				User user2 = new User();
@@ -261,7 +261,7 @@ public class Driver {
 				c2.setCarId(2);
 				c2.setColor("Silver");
 				c2.setMake("Audi");
-				c2.setModel("A5");
+				c2.setModel("A5 Cabriolet quattro");
 				c2.setSeats(4);
 				c2.setUser(user2);
 				c2.setYear(2018);
@@ -271,7 +271,7 @@ public class Driver {
 				c3.setCarId(3);
 				c3.setColor("White");
 				c3.setMake("BMW");
-				c3.setModel("X3");
+				c3.setModel("X6 M");
 				c3.setSeats(4);
 				c3.setUser(user3);
 				c3.setYear(2018);
@@ -281,7 +281,7 @@ public class Driver {
 				c4.setCarId(4);
 				c4.setColor("Red");
 				c4.setMake("Chevrolet");
-				c4.setModel("Blazer");
+				c4.setModel("Impala");
 				c4.setSeats(4);
 				c4.setUser(user4);
 				c4.setYear(2018);
