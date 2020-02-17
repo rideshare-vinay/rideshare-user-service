@@ -64,6 +64,7 @@ public class RideRecommendationsServiceImpl implements RideRecommendationsServic
 		}
 		BufferedReader br = null;
 		try {
+			// Doesn't work inside a jar file.
 			File apiFile = new File(getClass().getClassLoader().getResource("apikey.txt").getFile());
 			br = new BufferedReader(new FileReader(apiFile));
 			apiKey=br.readLine();

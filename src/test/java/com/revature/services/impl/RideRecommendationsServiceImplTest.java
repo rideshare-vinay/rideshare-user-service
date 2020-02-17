@@ -68,6 +68,7 @@ public class RideRecommendationsServiceImplTest {
 	}
 	
 	@Test
+	// Requires an apikey.txt in resources with a Google Maps api key.
 	public void testRoadKilometersBetweenPoints() {
 		double lat1 = 32.727220;
 		double long1 = -97.105940;
