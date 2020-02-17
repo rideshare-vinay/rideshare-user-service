@@ -101,3 +101,6 @@ Week1-CoreJava/TheGame/src/main/resources/Associates.txt
 #MacOs file
 
 .DS_Store
+
+# google maps api key
+apikey.txt
