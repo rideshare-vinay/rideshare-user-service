@@ -1,6 +1,7 @@
 package com.revature.services.impl;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -84,5 +85,17 @@ public class CarServiceImplTest {
 		String actual = csi.deleteCarById(1);
 		
 		assertEquals(actual, expected);
+	}
+	
+	@Test
+	public void testAddCarNull() {
+		Car car = new Car(1, "red", 4, "testCompany", "testModel", 2015, new User());
+		assertNull(csi.addCar(car));
+	}
+	
+	@Test
+	public void testUpdateCarNull() {
+		Car car = new Car(1, "red", 4, "testCompany", "testModel", 2015, new User());
+		assertNull(csi.updateCar(car));
 	}
 }
