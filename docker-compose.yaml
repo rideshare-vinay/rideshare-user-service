@@ -1,0 +1,6 @@
+version: '3'
+services:
+    rideshare-frontend:
+        image: rideshare-user-service:dev
+        ports:
+            - "9000:9000"
