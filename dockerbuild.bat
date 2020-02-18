@@ -1,1 +1,1 @@
-docker build -t rideshare-user-service:dev .
+docker build -t revaturerideshare/rideshare-user-service:dev .

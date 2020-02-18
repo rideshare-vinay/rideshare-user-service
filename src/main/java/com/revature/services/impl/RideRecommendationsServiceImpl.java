@@ -1,10 +1,9 @@
 package com.revature.services.impl;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import java.util.List;
@@ -64,16 +63,20 @@ public class RideRecommendationsServiceImpl implements RideRecommendationsServic
 		}
 		BufferedReader br = null;
 		try {
-			// Doesn't work inside a jar file.
-			File apiFile = new File(getClass().getClassLoader().getResource("apikey.txt").getFile());
-			br = new BufferedReader(new FileReader(apiFile));
+			InputStream apiStream = getClass().getResourceAsStream("/apikey.txt");
+
+			if (apiStream == null) {
+				System.out.println("apikey file not found");
+				return;
+			}
+
+			br = new BufferedReader(new InputStreamReader(apiStream));
 			apiKey=br.readLine();
-			
-		} catch (FileNotFoundException e) {
-			System.err.println("file not found");
+		} catch (NullPointerException e) {
+			System.err.println("no apikey file given");
 			apiKey="";
 		} catch (IOException e) {
-			System.err.println("io exception");
+			System.err.println("apikey io exception");
 			apiKey="";
 		} finally {
 			try {
